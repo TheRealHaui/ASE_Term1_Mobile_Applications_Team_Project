@@ -22,24 +22,26 @@ https://wiki.appcelerator.org/display/guides/Layouts,+Positioning,+and+the+View+
     </View>
     -->	    	
     	
-    	<View id="searchViewId" top="0%">
+    	<View id="searchViewId" top="2%" left="2%" right="2%">
         <TextField
 
             borderStyle="Ti.UI.INPUT_BORDERSTYLE_BEZEL"
             keyboardToolbarColor="#999" keyboardToolbarHeight="40"
-            top="10%"
-            value="Aktienkürzel suchen"
-             onFocus=" doSearchFieldFocused "
-             id="searchFieldId">
-
-
+            top="0%"
+            left="0%"
+            width="66%"
+            onFocus=" doSearchFieldFocused "
+            id="searchFieldId">
 
         </TextField>
         
+        <Button id="button" top="0%" left="70%" width="30%" onClick="doSearchButtonClick" title="Suchen"  />
+
+     </View>        
         
-<Button id="button"  onClick="doSearchButtonClick" title="Suchen"  />
+
         
-     </View>
+
         
         
         

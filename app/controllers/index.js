@@ -1,9 +1,26 @@
 
+
+var initialSearchFieldTextValue = "Aktienkürzel suchen";
+
+$.searchFieldId.value = initialSearchFieldTextValue;
+
+
 //Display page
 $.mainWindowId.open();
 
 
+
+
+
 function doSearchButtonClick(e){
+	
+	var searchFieldValue = $.searchFieldId.value;
+	
+	if ( searchFieldValue == "" || searchFieldValue == initialSearchFieldTextValue) {
+		alert("Sie müssen mindestens einen Buchstaben zur Suche eingeben");
+		$.searchFieldId.focus();
+		return;
+	}
 	
 	alert("clicked todo");
 	
