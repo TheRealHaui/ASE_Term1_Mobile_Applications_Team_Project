@@ -9,18 +9,20 @@ function Controller() {
         loadShareListAsynchronousAndDisplayItAfterwards(searchFieldValue);
     }
     function loadShareListAsynchronousAndDisplayItAfterwards() {
-        var f = '"AAPL","Apple Inc.","540.98"';
-        var i = f.split(",");
-        alert(i[0].replace('"', "").replace('"', ""));
-        alert(i[1].replace('"', "").replace('"', ""));
-        alert(i[2].replace('"', "").replace('"', ""));
-        var stock = Alloy.createModel("stock", {
-            sign: i[0].replace('"', "").replace('"', ""),
-            stockName: i[1].replace('"', "").replace('"', ""),
-            price: i[2].replace('"', "").replace('"', "")
+        var url = "http://finance.yahoo.com/d/quotes.csv?s=aapl&f=snl1";
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.debug("Received text: " + this.responseText);
+                alert("success" + this.responseText);
+            },
+            onerror: function(e) {
+                Ti.API.debug(e.error);
+                alert("Leider ist folgender Fehler aufgetreten: " + e.error);
+            },
+            timeout: 5e3
         });
-        alert(stock.get("sign"));
-        return;
+        client.open("GET", url);
+        client.send();
     }
     function doSearchFieldFocused() {
         $.searchFieldId.value = "";

@@ -22,10 +22,75 @@ function doSearchButtonClick(e){
 		return;
 	}
 	
-	alert("clicked todo");
+	var stock = getShareListAsynchronous(searchFieldValue);
 	
 }
 
+
+function getShareListAsynchronous(searchTerm){
+
+
+
+//Because of same origin policy limitation in browser temporary faked.
+//So development can go on in browser.
+
+var f = '"AAPL","Apple Inc.","540.98"';
+
+
+var i = f.split(",");
+
+       alert(i[0].replace("\"","").replace("\"","") );
+       alert(i[1].replace("\"","").replace("\"","") );
+       alert(i[2].replace("\"","").replace("\"","") );
+
+
+//http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
+var stock = Alloy.createModel("stock",{sign: i[0].replace("\"","").replace("\"",""),stockName: i[1].replace("\"","").replace("\"",""), price: i[2].replace("\"","").replace("\"","")});
+
+//alert (stock.get("sign"));
+
+
+//todo
+return stock;
+
+
+
+
+//todo	
+ var url = "http://finance.yahoo.com/d/quotes.csv?s=aapl&f=snl1";
+ 
+ var client = Ti.Network.createHTTPClient(
+ 	{
+ 		
+     // function called when the response data is available
+     onload : function(e) {
+         Ti.API.debug("Received text: " + this.responseText);
+         
+         //http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
+         //var stock = Alloy.createModel("stock",{sign: i[0].replace("\"","").replace("\"",""),stockName: i[1].replace("\"","").replace("\"",""), price: i[2].replace("\"","").replace("\"","")});
+         //alert (stock.get("sign"));
+        
+         alert('success' + this.responseText);
+     },
+     
+     // function called when an error occurs, including a timeout
+     onerror : function(e) {
+         Ti.API.debug(e.error);
+         alert("Leider ist folgender Fehler aufgetreten: " + e.error);
+     },
+     
+     timeout : 5000  // in milliseconds
+     }
+ );
+ 
+ // Prepare the connection.
+ client.open("GET", url);
+ 
+ 
+ // Send the request.
+ client.send();	
+	
+}
 
 
 function doSearchFieldFocused(e){

@@ -12,7 +12,7 @@ findPlace Dateien löschen
 
 Because in the Titanium Studio the git client does not work proberly check in changes to git.
 
-cd Users\Haui\Documents\Titanium_Studio_Workspace\ASE_Term1_Mobile_Applications_Exercise_4>
+cd c:\Users\Haui\Documents\Titanium_Studio_Workspace\ASE_Term1_Mobile_Applications_Exercise_4
 
 git push -u ASE_Term1_Mobile_Applications_Exercise_4 master
 

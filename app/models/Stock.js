@@ -5,10 +5,16 @@ exports.definition = {
 		    "stockName": "string",
 		    "currentPrice": "decimal"
 		},
+		
+		//With this lines you are not going to do it again 
+		//for mobile web pages.
+		//Dirty bloody 
+		/**
 		adapter: {
 			type: "sql",
 			collection_name: "Stock"
 		}
+		**/
 	},
 	extendModel: function(Model) {
 		_.extend(Model.prototype, {

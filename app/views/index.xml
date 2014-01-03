@@ -23,6 +23,12 @@ https://wiki.appcelerator.org/display/guides/Layouts,+Positioning,+and+the+View+
     -->	    	
     	
     	<View id="searchViewId" top="2%" left="2%" right="2%">
+    	
+    	<!-- Property value gleich halten wie Variable initialSearchFieldTextValue in
+    	     controller index.js Zumindestens auf Android funktioniert die Zuweisung mittels 
+    	     Javascript in index.js controller nicht.
+    	     Und auch nicht diese Zuweisung also **** ***.
+        -->
         <TextField
 
             borderStyle="Ti.UI.INPUT_BORDERSTYLE_BEZEL"
@@ -30,11 +36,14 @@ https://wiki.appcelerator.org/display/guides/Layouts,+Positioning,+and+the+View+
             top="0%"
             left="0%"
             width="66%"
+            value="Aktienkürzel suchen"
             onFocus=" doSearchFieldFocused "
             id="searchFieldId">
 
         </TextField>
-        
+<!-- todo Scheiß fuck keyboard auf bzw. für Android bei bzw. für Textfeld noch einschalten 
+     Andererseits wird dies offensichtlich vom Emulator nicht angezeigt.
+-->        
         <Button id="button" top="0%" left="70%" width="30%" onClick="doSearchButtonClick" title="Suchen"  />
 
      </View>        
