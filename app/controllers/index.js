@@ -1,11 +1,22 @@
-function doClick(e) {
-    
-    alert($.label.text + " Haui");
-}
 
+//Display page
 $.index.open();
 
 
+function doSearchButtonClick(e){
+	
+	alert("clicked todo");
+	
+}
+
+
+
+function doSearchFieldFocused(e){
+	
+	//alert("Searchfield focused");
+	$.searchFieldId.value = "";
+	
+}
 
 
 

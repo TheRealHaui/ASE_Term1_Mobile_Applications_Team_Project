@@ -5,6 +5,9 @@ http://finance.yahoo.com/d/quotes.csv?s=aapl&f=snl1
 
 
 
+findPlace Dateien löschen
+
+
 
 
 Because in the Titanium Studio the git client does not work proberly check in changes to git.

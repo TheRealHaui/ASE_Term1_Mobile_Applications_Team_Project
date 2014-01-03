@@ -1,6 +1,0 @@
-<Alloy>
-  <View id="searchContainer">
-    <TextField id="searchInput" hintText="Find a place..." />
-  </View>
-  <TableView id="searchResultsTable"/>
-</Alloy>
