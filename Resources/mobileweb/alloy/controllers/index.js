@@ -13,33 +13,37 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.index = Ti.UI.createWindow({
+    $.__views.mainWindowId = Ti.UI.createWindow({
+        id: "mainWindowId",
+        title: "Aktuelle Aktienkurse",
         fullscreen: "true",
-        backgroundColor: "white",
-        id: "index"
+        backgroundColor: "white"
     });
-    $.__views.index && $.addTopLevelView($.__views.index);
+    $.__views.mainWindowId && $.addTopLevelView($.__views.mainWindowId);
+    $.__views.searchViewId = Ti.UI.createView({
+        id: "searchViewId",
+        top: "0%"
+    });
+    $.__views.mainWindowId.add($.__views.searchViewId);
     $.__views.searchFieldId = Ti.UI.createTextField({
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL,
         keyboardToolbarColor: "#999",
         keyboardToolbarHeight: "40",
-        top: "10",
+        top: "0%",
         value: "Aktienkürzel suchen",
         id: "searchFieldId"
     });
-    $.__views.index.add($.__views.searchFieldId);
+    $.__views.searchViewId.add($.__views.searchFieldId);
     doSearchFieldFocused ? $.__views.searchFieldId.addEventListener("focus", doSearchFieldFocused) : __defers["$.__views.searchFieldId!focus! doSearchFieldFocused "] = true;
     $.__views.button = Ti.UI.createButton({
         id: "button",
-        title: "Hello",
-        width: "100",
-        height: "50"
+        title: "Suchen"
     });
-    $.__views.index.add($.__views.button);
+    $.__views.searchViewId.add($.__views.button);
     doSearchButtonClick ? $.__views.button.addEventListener("click", doSearchButtonClick) : __defers["$.__views.button!click!doSearchButtonClick"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.index.open();
+    $.mainWindowId.open();
     __defers["$.__views.searchFieldId!focus! doSearchFieldFocused "] && $.__views.searchFieldId.addEventListener("focus", doSearchFieldFocused);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);
     _.extend($, exports);

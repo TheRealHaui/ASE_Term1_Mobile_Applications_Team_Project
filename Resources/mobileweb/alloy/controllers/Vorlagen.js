@@ -14,6 +14,7 @@ function Controller() {
     $.__views.Vorlagen && $.addTopLevelView($.__views.Vorlagen);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    arguments[0] || {};
     _.extend($, exports);
 }
 

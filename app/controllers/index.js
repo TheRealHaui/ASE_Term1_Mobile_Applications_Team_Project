@@ -1,6 +1,6 @@
 
 //Display page
-$.index.open();
+$.mainWindowId.open();
 
 
 function doSearchButtonClick(e){

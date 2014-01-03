@@ -1,10 +1,33 @@
 <Alloy>
-    <Window fullscreen="true" backgroundColor="white">
+	
+<!--
+
+Basi layout mechanism of Titanium:
+
+https://wiki.appcelerator.org/display/guides/Layouts,+Positioning,+and+the+View+Hierarchy
+	
+-->		
+	
+    <Window id="mainWindowId" title="Aktuelle Aktienkurse" fullscreen="true" backgroundColor="white">
+    	
+    <!-- header -->
+    <!--
+    <View id="header">
+      <Label id="title">Alloy Todo</Label>
+      <View class="divider"/>
+      <View id="addView" >
+        <ImageView id="addImage"/>
+      </View>
+
+    </View>
+    -->	    	
+    	
+    	<View id="searchViewId" top="0%">
         <TextField
 
             borderStyle="Ti.UI.INPUT_BORDERSTYLE_BEZEL"
             keyboardToolbarColor="#999" keyboardToolbarHeight="40"
-            top="10" 
+            top="10%"
             value="Aktienkürzel suchen"
              onFocus=" doSearchFieldFocused "
              id="searchFieldId">
@@ -14,9 +37,9 @@
         </TextField>
         
         
-<Button id="button" onClick="doSearchButtonClick" title="Hello" width="100" height="50" />
+<Button id="button"  onClick="doSearchButtonClick" title="Suchen"  />
         
-     
+     </View>
         
         
         
