@@ -165,13 +165,13 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
     //Bloody shit **********
     //Eclispe added itsel because of its wonderful autocompletion features that are always that great
     //one semikolon to this line
-    //	var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + """&f=snl1";
+    //var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + ""&f=snl1";
     //The result was that Javasript did not complain.
     //The mobile web version of the application worked.
     //And it was not anymore possible to compile the program for android.
     //The given error message of Alloy was "error".
     //And the given error message of the so wonderful juhu juhu new super duppa framework node.js was "error in uglify-js".
-    //You are so grea ...
+    //You are so great ...
 	var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + "&f=snl1";
 
 	var client = Ti.Network.createHTTPClient({
@@ -229,10 +229,6 @@ function getStockModelFromWebserviceContent(webserviceContent){
 		return stock;
 	
 }
-
-
-
-
 
 
 

@@ -1,12 +1,6 @@
 
 
 
-http://finance.yahoo.com/d/quotes.csv?s=aapl&f=snl1
-
-
-
-findPlace Dateien löschen
-
 
 
 

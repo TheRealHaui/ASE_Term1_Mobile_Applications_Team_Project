@@ -1,5 +1,2 @@
-
-
-todo
-
-Place your license text here.  This file will be incorporated with your app at package time.
+Use it or not.
+Up to you.
