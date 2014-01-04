@@ -2,7 +2,7 @@
 	
 <!--
 
-Basi layout mechanism of Titanium:
+Basic layout mechanism of Titanium:
 
 https://wiki.appcelerator.org/display/guides/Layouts,+Positioning,+and+the+View+Hierarchy
 	
@@ -44,11 +44,13 @@ http://docs.appcelerator.com/titanium/3.0/#!/guide/Alloy_Controllers-section-346
             left="0%"
             width="66%"
             value="Aktienkürzel suchen"
-            onFocus=" doSearchFieldFocused "
-            id="searchFieldId">
+            id="searchFieldId"
+            onReturn="doSearchButtonClick"
+            onTouchstart="doTouchStart"
+            >
 
         </TextField>
-<!-- todo Scheiß fuck keyboard auf bzw. für Android bei bzw. für Textfeld noch einschalten 
+<!-- todo keyboard auf bzw. für Android bei bzw. für Textfeld noch einschalten 
      Andererseits wird dies offensichtlich vom Emulator nicht angezeigt.
 -->        
         <Button id="button" top="0%" left="70%" width="30%" onClick="doSearchButtonClick" title="Suchen"  />
