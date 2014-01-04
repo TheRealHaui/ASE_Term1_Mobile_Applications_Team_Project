@@ -10,6 +10,9 @@ function Controller() {
         showStockList(stock);
         $.searchFieldId.focus();
     }
+    function doTouchStart() {
+        $.searchFieldId.value == initialSearchFieldTextValue && ($.searchFieldId.value = "");
+    }
     function showStockList(stock) {
         var tableViewData = Ti.UI.createTableView({
             backgroundColor: "white",
@@ -27,9 +30,6 @@ function Controller() {
             borderRadius: 0
         });
         $.searchViewId.add(tableViewData);
-    }
-    function doTouchStart() {
-        $.searchFieldId.value == initialSearchFieldTextValue && ($.searchFieldId.value = "");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";

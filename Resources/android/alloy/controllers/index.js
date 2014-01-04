@@ -6,26 +6,30 @@ function Controller() {
             $.searchFieldId.focus();
             return;
         }
-        loadShareListAsynchronousAndDisplayItAfterwards(searchFieldValue);
+        var stock = getShareListAsynchronous(searchFieldValue);
+        showStockList(stock);
+        $.searchFieldId.focus();
     }
-    function loadShareListAsynchronousAndDisplayItAfterwards() {
-        var url = "http://finance.yahoo.com/d/quotes.csv?s=aapl&f=snl1";
-        var client = Ti.Network.createHTTPClient({
-            onload: function() {
-                Ti.API.debug("Received text: " + this.responseText);
-                alert("success" + this.responseText);
-            },
-            onerror: function(e) {
-                Ti.API.debug(e.error);
-                alert("Leider ist folgender Fehler aufgetreten: " + e.error);
-            },
-            timeout: 5e3
+    function doTouchStart() {
+        $.searchFieldId.value == initialSearchFieldTextValue && ($.searchFieldId.value = "");
+    }
+    function showStockList(stock) {
+        var tableViewData = Ti.UI.createTableView({
+            backgroundColor: "white",
+            data: [ {
+                title: "Aktienkürzel: " + stock.get("sign")
+            }, {
+                title: "Name: " + stock.get("stockName")
+            }, {
+                title: "aktueller Preis in $: " + stock.get("price")
+            } ],
+            top: 40,
+            left: "0%",
+            borderColor: "black",
+            borderWidth: 0,
+            borderRadius: 0
         });
-        client.open("GET", url);
-        client.send();
-    }
-    function doSearchFieldFocused() {
-        $.searchFieldId.value = "";
+        $.searchViewId.add(tableViewData);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -60,7 +64,8 @@ function Controller() {
         id: "searchFieldId"
     });
     $.__views.searchViewId.add($.__views.searchFieldId);
-    doSearchFieldFocused ? $.__views.searchFieldId.addEventListener("focus", doSearchFieldFocused) : __defers["$.__views.searchFieldId!focus! doSearchFieldFocused "] = true;
+    doSearchButtonClick ? $.__views.searchFieldId.addEventListener("return", doSearchButtonClick) : __defers["$.__views.searchFieldId!return!doSearchButtonClick"] = true;
+    doTouchStart ? $.__views.searchFieldId.addEventListener("touchstart", doTouchStart) : __defers["$.__views.searchFieldId!touchstart!doTouchStart"] = true;
     $.__views.button = Ti.UI.createButton({
         id: "button",
         top: "0%",
@@ -75,7 +80,9 @@ function Controller() {
     var initialSearchFieldTextValue = "Aktienkürzel suchen";
     $.searchFieldId.value = initialSearchFieldTextValue;
     $.mainWindowId.open();
-    __defers["$.__views.searchFieldId!focus! doSearchFieldFocused "] && $.__views.searchFieldId.addEventListener("focus", doSearchFieldFocused);
+    Ti.include("../commonjs/webservicerelated.js");
+    __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
+    __defers["$.__views.searchFieldId!touchstart!doTouchStart"] && $.__views.searchFieldId.addEventListener("touchstart", doTouchStart);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);
     _.extend($, exports);
 }
