@@ -24,6 +24,10 @@ function doSearchButtonClick(e){
 	
 	var stock = getShareListAsynchronous(searchFieldValue);
 	
+	//alert(stock.get("stockName") + "alkjdöfas");
+	
+	showStockList(stock);
+	
 }
 
 
@@ -39,9 +43,9 @@ var f = '"AAPL","Apple Inc.","540.98"';
 
 var i = f.split(",");
 
-       alert(i[0].replace("\"","").replace("\"","") );
-       alert(i[1].replace("\"","").replace("\"","") );
-       alert(i[2].replace("\"","").replace("\"","") );
+       //alert(i[0].replace("\"","").replace("\"","") );
+       //alert(i[1].replace("\"","").replace("\"","") );
+       //alert(i[2].replace("\"","").replace("\"","") );
 
 
 //http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
@@ -91,6 +95,30 @@ return stock;
  client.send();	
 	
 }
+
+
+
+function showStockList(stock){
+	
+/* 
+
+http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.TableViewRow
+	
+var win = Ti.UI.createWindow();	
+	
+var tableData = [ {title: 'Apples'}, {title: 'Bananas'}, {title: 'Carrots'}, {title: 'Potatoes'} ];
+
+var table = Ti.UI.createTableView({
+  data: tableData
+});
+win.add(table);
+win.open();	
+	
+*/	
+	
+}
+
+
 
 
 function doSearchFieldFocused(e){

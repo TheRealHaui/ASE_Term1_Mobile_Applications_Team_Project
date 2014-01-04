@@ -6,22 +6,20 @@ function Controller() {
             $.searchFieldId.focus();
             return;
         }
-        loadShareListAsynchronousAndDisplayItAfterwards(searchFieldValue);
+        var stock = getShareListAsynchronous(searchFieldValue);
+        showStockList(stock);
     }
-    function loadShareListAsynchronousAndDisplayItAfterwards() {
+    function getShareListAsynchronous() {
         var f = '"AAPL","Apple Inc.","540.98"';
         var i = f.split(",");
-        alert(i[0].replace('"', "").replace('"', ""));
-        alert(i[1].replace('"', "").replace('"', ""));
-        alert(i[2].replace('"', "").replace('"', ""));
         var stock = Alloy.createModel("stock", {
             sign: i[0].replace('"', "").replace('"', ""),
             stockName: i[1].replace('"', "").replace('"', ""),
             price: i[2].replace('"', "").replace('"', "")
         });
-        alert(stock.get("sign"));
-        return;
+        return stock;
     }
+    function showStockList() {}
     function doSearchFieldFocused() {
         $.searchFieldId.value = "";
     }
@@ -68,6 +66,17 @@ function Controller() {
     });
     $.__views.searchViewId.add($.__views.button);
     doSearchButtonClick ? $.__views.button.addEventListener("click", doSearchButtonClick) : __defers["$.__views.button!click!doSearchButtonClick"] = true;
+    $.__views.row = Ti.UI.createTableViewRow({
+        id: "row"
+    });
+    $.__views.searchViewId.add($.__views.row);
+    $.__views.view = Ti.UI.createView({
+        id: "view",
+        top: "2%",
+        backgroundColor: "red",
+        height: "20"
+    });
+    $.__views.row.add($.__views.view);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var initialSearchFieldTextValue = "Aktienkürzel suchen";
