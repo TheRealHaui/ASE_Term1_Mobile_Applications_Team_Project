@@ -1,3 +1,0 @@
-
-
-//Not working with androd

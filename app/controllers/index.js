@@ -34,9 +34,8 @@ function doSearchButtonClick(e) {
 		return;
 	}
 
-	var stock = getShareListAsynchronous(searchFieldValue);
-
-	showStockList(stock);
+	getShareListAsynchronousAndShowIt(searchFieldValue);
+	
 	
 	$.searchFieldId.focus();
 
@@ -149,31 +148,46 @@ function showStockList(stock) {
 
 
 
-function getShareListAsynchronous(searchTerm) {
+function getShareListAsynchronousAndShowIt(searchTerm) {
 
 	//Because of same origin policy limitation in browser temporary faked.
 	//So development can go on in browser.
 
 	if (OS_MOBILEWEB) {
 		
-		return getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"');
+		showStockList( getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"') );
+		
+		return;
 
 	}
 
-
-	var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + ""&f=snl1";
+    //Take care.
+    //Bloody shit **********
+    //Eclispe added itsel because of its wonderful autocompletion features that are always that great
+    //one semikolon to this line
+    //	var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + """&f=snl1";
+    //The result was that Javasript did not complain.
+    //The mobile web version of the application worked.
+    //And it was not anymore possible to compile the program for android.
+    //The given error message of Alloy was "error".
+    //And the given error message of the so wonderful juhu juhu new super duppa framework node.js was "error in uglify-js".
+    //You are so grea ...
+	var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + "&f=snl1";
 
 	var client = Ti.Network.createHTTPClient({
 
 		// function called when the response data is available
 		onload : function(e) {
-			Ti.API.debug("Received text: " + this.responseText);
+			//Ti.API.debug("Received text: " + this.responseText);
 
 			//http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
 			//var stock = Alloy.createModel("stock",{sign: i[0].replace("\"","").replace("\"",""),stockName: i[1].replace("\"","").replace("\"",""), price: i[2].replace("\"","").replace("\"","")});
 			//alert (stock.get("sign"));
 
-			alert('success' + this.responseText);
+			//alert('success' + this.responseText);
+			
+			showStockList( getStockModelFromWebserviceContent(this.responseText) );
+			
 		},
 
 		// function called when an error occurs, including a timeout

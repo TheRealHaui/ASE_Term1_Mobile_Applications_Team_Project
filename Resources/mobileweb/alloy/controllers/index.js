@@ -6,8 +6,7 @@ function Controller() {
             $.searchFieldId.focus();
             return;
         }
-        var stock = getShareListAsynchronous(searchFieldValue);
-        showStockList(stock);
+        getShareListAsynchronousAndShowIt(searchFieldValue);
         $.searchFieldId.focus();
     }
     function doTouchStart() {
@@ -30,6 +29,19 @@ function Controller() {
             borderRadius: 0
         });
         $.searchViewId.add(tableViewData);
+    }
+    function getShareListAsynchronousAndShowIt(searchTerm) {
+        showStockList(getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"'));
+        return;
+    }
+    function getStockModelFromWebserviceContent(webserviceContent) {
+        var field = webserviceContent.split(",");
+        var stock = Alloy.createModel("stock", {
+            sign: field[0].replace('"', "").replace('"', ""),
+            stockName: field[1].replace('"', "").replace('"', ""),
+            price: field[2].replace('"', "").replace('"', "")
+        });
+        return stock;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -80,7 +92,6 @@ function Controller() {
     var initialSearchFieldTextValue = "Aktienkürzel suchen";
     $.searchFieldId.value = initialSearchFieldTextValue;
     $.mainWindowId.open();
-    Ti.include("../commonjs/webservicerelated.js");
     __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
     __defers["$.__views.searchFieldId!touchstart!doTouchStart"] && $.__views.searchFieldId.addEventListener("touchstart", doTouchStart);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);
