@@ -6,6 +6,13 @@ Basi layout mechanism of Titanium:
 
 https://wiki.appcelerator.org/display/guides/Layouts,+Positioning,+and+the+View+Hierarchy
 	
+	
+	
+Conditional Code für Geräte
+
+http://docs.appcelerator.com/titanium/3.0/#!/guide/Alloy_Controllers-section-34636384_AlloyControllers-ConditionalCode	
+	
+	
 -->		
 	
     <Window id="mainWindowId" title="Aktuelle Aktienkurse" fullscreen="true" backgroundColor="white">
@@ -46,10 +53,11 @@ https://wiki.appcelerator.org/display/guides/Layouts,+Positioning,+and+the+View+
 -->        
         <Button id="button" top="0%" left="70%" width="30%" onClick="doSearchButtonClick" title="Suchen"  />
 
+<!-- 
     <TableViewRow id="row">
         <View id="view" top="2%" backgroundColor="red" height="20"/>
     </TableViewRow>
-
+-->
 
      </View>        
         

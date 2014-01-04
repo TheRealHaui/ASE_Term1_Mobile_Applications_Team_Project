@@ -19,7 +19,20 @@ function Controller() {
         });
         return stock;
     }
-    function showStockList() {}
+    function showStockList() {
+        var tvResults = Ti.UI.createTableView({
+            backgroundColor: "blue",
+            data: [],
+            top: 55,
+            left: 10,
+            width: 260,
+            height: 250,
+            borderColor: "green",
+            borderWidth: 1,
+            borderRadius: 10
+        });
+        $.searchViewId.add(tvResults);
+    }
     function doSearchFieldFocused() {
         $.searchFieldId.value = "";
     }
@@ -66,17 +79,6 @@ function Controller() {
     });
     $.__views.searchViewId.add($.__views.button);
     doSearchButtonClick ? $.__views.button.addEventListener("click", doSearchButtonClick) : __defers["$.__views.button!click!doSearchButtonClick"] = true;
-    $.__views.row = Ti.UI.createTableViewRow({
-        id: "row"
-    });
-    $.__views.searchViewId.add($.__views.row);
-    $.__views.view = Ti.UI.createView({
-        id: "view",
-        top: "2%",
-        backgroundColor: "red",
-        height: "20"
-    });
-    $.__views.row.add($.__views.view);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var initialSearchFieldTextValue = "Aktienkürzel suchen";

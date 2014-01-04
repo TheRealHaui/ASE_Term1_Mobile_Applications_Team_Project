@@ -100,6 +100,30 @@ return stock;
 
 function showStockList(stock){
 	
+	//http://stackoverflow.com/questions/7465352/titanium-studio-adding-rows-to-section
+	
+	//alert(111111);
+	
+	
+// CREATE RESULTS TABLEVIEW
+var tvResults = Ti.UI.createTableView({
+    backgroundColor : "blue",
+    data : [],
+    top : 55,
+    left : 10,
+    width : 260,
+    height : 250,
+    borderColor : "green",
+    borderWidth : 1,
+    borderRadius : 10
+    }
+    );
+
+//In bzw. mit Alloy xml Dateien generierte Elemente müssen immer mit Dollar und Punkt
+//Notation referenziert werden.    
+$.searchViewId.add(tvResults);
+	
+	
 /* 
 
 http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.TableViewRow
