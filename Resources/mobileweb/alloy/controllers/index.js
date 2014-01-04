@@ -8,16 +8,7 @@ function Controller() {
         }
         var stock = getShareListAsynchronous(searchFieldValue);
         showStockList(stock);
-    }
-    function getShareListAsynchronous() {
-        var f = '"AAPL","Apple Inc.","540.98"';
-        var i = f.split(",");
-        var stock = Alloy.createModel("stock", {
-            sign: i[0].replace('"', "").replace('"', ""),
-            stockName: i[1].replace('"', "").replace('"', ""),
-            price: i[2].replace('"', "").replace('"', "")
-        });
-        return stock;
+        $.searchFieldId.focus();
     }
     function showStockList(stock) {
         var tableViewData = Ti.UI.createTableView({
@@ -89,6 +80,7 @@ function Controller() {
     var initialSearchFieldTextValue = "Aktienkürzel suchen";
     $.searchFieldId.value = initialSearchFieldTextValue;
     $.mainWindowId.open();
+    Ti.include("../commonjs/webservicerelated.js");
     __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
     __defers["$.__views.searchFieldId!touchstart!doTouchStart"] && $.__views.searchFieldId.addEventListener("touchstart", doTouchStart);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);
