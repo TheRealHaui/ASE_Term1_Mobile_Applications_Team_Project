@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <id>com.haui.exercise4</id>
+    <id>com.haui.groupExercise</id>
     <name>Aktuelle Aktienkurse</name>
     <version>1.0</version>
     <publisher>Haui</publisher>
     <url>http://</url>
-    <description>Aktuelle Aktionkurse durch Kürzeleingabe abrufen</description>
+    <description>Personen finden</description>
     <copyright>2014 by Haui</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>

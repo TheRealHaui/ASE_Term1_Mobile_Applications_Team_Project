@@ -27,7 +27,8 @@ function Controller() {
                 width: 40,
                 backgroundImage: "/imagesForAllPlatforms/appicon.png",
                 title: "Anrufen",
-                touchEnabled: true
+                touchEnabled: true,
+                customData: "my custom data"
             });
             var buttonNav = Ti.UI.createButton({
                 right: 110,
@@ -68,7 +69,7 @@ function Controller() {
             headerTitle: "Ergebnisse"
         });
         table.addEventListener("click", function(e) {
-            alert("You clicked row " + e.index + " " + e.source.toString());
+            "[object TiUIButton]" == e.source.toString() && alert("You clicked row " + e.index + " " + e.source.toString() + e.source.customData + " " + e.source.toString());
         });
         $.searchViewId.add(table);
     }
