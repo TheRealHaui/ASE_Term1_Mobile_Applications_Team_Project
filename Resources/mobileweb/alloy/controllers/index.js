@@ -22,7 +22,7 @@ function Controller() {
                 text: "Row " + (i + 1)
             });
             var image = Ti.UI.createImageView({
-                url: "appicon.png"
+                image: "/imagesForAllPlatforms/appicon.png"
             });
             var button = Ti.UI.createButton({
                 right: 10,

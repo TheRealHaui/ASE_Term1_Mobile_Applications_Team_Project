@@ -70,9 +70,9 @@ function showTestLayout() {
 			text : 'Row ' + (i + 1)
 		});
 		
-		//todo
+		//Where to put images in your project: http://stackoverflow.com/questions/15888595/where-is-the-alloy-resources-folder
 		var image = Ti.UI.createImageView({
-			url : 'appicon.png'
+			image : '/imagesForAllPlatforms/appicon.png'
 		});
 		
 		var button = Ti.UI.createButton({
