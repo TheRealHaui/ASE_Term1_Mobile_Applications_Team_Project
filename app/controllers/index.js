@@ -1,10 +1,9 @@
-var initialSearchFieldTextValue = "Aktienkürzel suchen";
+var initialSearchFieldTextValue = "Personen suchen";
 
 $.searchFieldId.value = initialSearchFieldTextValue;
 
 //Display page
 $.mainWindowId.open();
-
 
 //Include webservice code that is in own javascript file
 //ATTENTION
@@ -16,13 +15,10 @@ $.mainWindowId.open();
 
 //Javascript librariers must not contain references to alloy
 //objects.
-//That means no $ notation allowed. 
+//That means no $ notation allowed.
 
 //And this is not working with android over all.
 //Ti.include("../commonjs/webservicerelated.js");
-
-
-
 
 function doSearchButtonClick(e) {
 
@@ -35,14 +31,10 @@ function doSearchButtonClick(e) {
 	}
 
 	getShareListAsynchronousAndShowIt(searchFieldValue);
-	
-	
+
 	$.searchFieldId.focus();
 
 }
-
-
-
 
 function doTouchStart(e) {
 
@@ -52,8 +44,75 @@ function doTouchStart(e) {
 
 }
 
+function showTestLayout() {
+
+	//http://docs.appcelerator.com/titanium/2.1/#!/guide/TableViews-section-29004930_TableViews-Customrows
+
+	var tbl_data = [];
+
+	var searchbar;
+
+	//Titanium searbar wird nur auf Android, iPhone und iPad unterstützt.
+	//http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.SearchBar
+	if (!OS_MOBILEWEB) {
+		searchbar = Ti.UI.createSearchBar({
+			barColor : '#385292',
+			showCancel : false
+		});
+	}
+
+	for (var i = 0; i < 10; i++) {
+		var row = Ti.UI.createTableViewRow();
+		var label = Ti.UI.createLabel({
+			left : 10,
+			text : 'Row ' + (i + 1)
+		});
+		
+		//todo
+		var image = Ti.UI.createImageView({
+			url : 'appicon.png'
+		});
+		var button = Ti.UI.createButton({
+			right : 10,
+			height : 30,
+			width : 80,
+			title : 'Details'
+		});
+		row.add(label);
+		row.add(image);
+		row.add(button);
+		tbl_data.push(row);
+	}
+
+	// now assign that array to the table's data property to add those objects as rows
+	//Eventuell später noch auf ScrollView oder ScrollableView umstellen.
+	//http://docs.appcelerator.com/titanium/2.1/#!/guide/Scrolling_Views
+	//Funktioniert offensichtlich in Web nicht ...
+	var table = Titanium.UI.createTableView({
+		data : tbl_data,
+		searchbar : searchbar,
+		top : 40,
+		left : "0%",
+		//width : 260,
+		//height : 250,
+		borderColor : "black",
+		borderWidth : 0,
+		borderRadius : 0,
+		headerTitle : 'Ergebnisse',
+		//footerTitle:"Wow. That was cool!" + " todo",
+	});
+
+	//In bzw. mit Alloy xml Dateien generierte Elemente müssen immer mit Dollar und Punkt
+	//Notation referenziert werden.
+	$.searchViewId.add(table);
+
+}
 
 function showStockList(stock) {
+
+	showTestLayout();
+	//todo
+	return;
 
 	//http://stackoverflow.com/questions/7465352/titanium-studio-adding-rows-to-section
 
@@ -99,8 +158,6 @@ function showStockList(stock) {
 	//Notation referenziert werden.
 	$.searchViewId.add(tableViewData);
 
-
-
 	/*
 
 	 http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.TableViewRow
@@ -118,9 +175,6 @@ function showStockList(stock) {
 	 */
 
 }
-
-
-
 
 /**
  var items = ['Television', 'Music System', 'Car', 'Bus', 'Train', 'Computer', 'Lap Top', 'I-Phone', 'Tablet', 'Electronics', 'Watch', 'Mouse'];
@@ -145,33 +199,30 @@ function showStockList(stock) {
  $.tabGroup.open();
  **/
 
-
-
-
 function getShareListAsynchronousAndShowIt(searchTerm) {
 
 	//Because of same origin policy limitation in browser temporary faked.
 	//So development can go on in browser.
 
 	if (OS_MOBILEWEB) {
-		
-		showStockList( getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"') );
-		
+
+		showStockList(getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"'));
+
 		return;
 
 	}
 
-    //Take care.
-    //Bloody shit **********
-    //Eclispe added itsel because of its wonderful autocompletion features that are always that great
-    //one semikolon to this line
-    //var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + ""&f=snl1";
-    //The result was that Javasript did not complain.
-    //The mobile web version of the application worked.
-    //And it was not anymore possible to compile the program for android.
-    //The given error message of Alloy was "error".
-    //And the given error message of the so wonderful juhu juhu new super duppa framework node.js was "error in uglify-js".
-    //You are so great ...
+	//Take care.
+	//Bloody shit **********
+	//Eclispe added itsel because of its wonderful autocompletion features that are always that great
+	//one semikolon to this line
+	//var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + ""&f=snl1";
+	//The result was that Javasript did not complain.
+	//The mobile web version of the application worked.
+	//And it was not anymore possible to compile the program for android.
+	//The given error message of Alloy was "error".
+	//And the given error message of the so wonderful juhu juhu new super duppa framework node.js was "error in uglify-js".
+	//You are so great ...
 	var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + "&f=snl1";
 
 	var client = Ti.Network.createHTTPClient({
@@ -185,9 +236,9 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 			//alert (stock.get("sign"));
 
 			//alert('success' + this.responseText);
-			
-			showStockList( getStockModelFromWebserviceContent(this.responseText) );
-			
+
+			showStockList(getStockModelFromWebserviceContent(this.responseText));
+
 		},
 
 		// function called when an error occurs, including a timeout
@@ -207,29 +258,24 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 
 }
 
+function getStockModelFromWebserviceContent(webserviceContent) {
 
+	var field = webserviceContent.split(",");
 
-function getStockModelFromWebserviceContent(webserviceContent){
-	
-		var field = webserviceContent.split(",");
+	//alert(field[0].replace("\"","").replace("\"","") );
+	//alert(field[1].replace("\"","").replace("\"","") );
+	//alert(field[2].replace("\"","").replace("\"","") );
 
-		//alert(field[0].replace("\"","").replace("\"","") );
-		//alert(field[1].replace("\"","").replace("\"","") );
-		//alert(field[2].replace("\"","").replace("\"","") );
+	//http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
+	var stock = Alloy.createModel("stock", {
+		sign : field[0].replace("\"", "").replace("\"", ""),
+		stockName : field[1].replace("\"", "").replace("\"", ""),
+		price : field[2].replace("\"", "").replace("\"", "")
+	});
 
-		//http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
-		var stock = Alloy.createModel("stock", {
-			sign : field[0].replace("\"", "").replace("\"", ""),
-			stockName : field[1].replace("\"", "").replace("\"", ""),
-			price : field[2].replace("\"", "").replace("\"", "")
-		});
+	//alert (stock.get("sign"));
 
-		//alert (stock.get("sign"));
+	return stock;
 
-		return stock;
-	
 }
-
-
-
 

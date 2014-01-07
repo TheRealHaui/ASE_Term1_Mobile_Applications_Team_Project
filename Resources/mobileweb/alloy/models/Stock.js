@@ -18,9 +18,9 @@ exports.definition = {
 
 var Alloy = require("alloy"), _ = require("alloy/underscore")._, model, collection;
 
-model = Alloy.M("stock", exports.definition, []);
+model = Alloy.M("Stock", exports.definition, []);
 
-collection = Alloy.C("stock", exports.definition, model);
+collection = Alloy.C("Stock", exports.definition, model);
 
 exports.Model = model;
 

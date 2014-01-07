@@ -15,7 +15,7 @@ http://docs.appcelerator.com/titanium/3.0/#!/guide/Alloy_Controllers-section-346
 	
 -->		
 	
-    <Window id="mainWindowId" title="Aktuelle Aktienkurse" fullscreen="true" backgroundColor="white">
+    <Window id="mainWindowId" title="Personen suchen" fullscreen="true" backgroundColor="white">
     	
     <!-- header -->
     <!--
@@ -43,7 +43,7 @@ http://docs.appcelerator.com/titanium/3.0/#!/guide/Alloy_Controllers-section-346
             top="0%"
             left="0%"
             width="66%"
-            value="Aktienkürzel suchen"
+            value="Personen suchen"
             id="searchFieldId"
             onReturn="doSearchButtonClick"
             onTouchstart="doTouchStart"

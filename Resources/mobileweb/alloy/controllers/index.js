@@ -12,23 +12,44 @@ function Controller() {
     function doTouchStart() {
         $.searchFieldId.value == initialSearchFieldTextValue && ($.searchFieldId.value = "");
     }
-    function showStockList(stock) {
-        var tableViewData = Ti.UI.createTableView({
-            backgroundColor: "white",
-            data: [ {
-                title: "Aktienkürzel: " + stock.get("sign")
-            }, {
-                title: "Name: " + stock.get("stockName")
-            }, {
-                title: "aktueller Preis in $: " + stock.get("price")
-            } ],
+    function showTestLayout() {
+        var tbl_data = [];
+        var searchbar;
+        for (var i = 0; 10 > i; i++) {
+            var row = Ti.UI.createTableViewRow();
+            var label = Ti.UI.createLabel({
+                left: 10,
+                text: "Row " + (i + 1)
+            });
+            var image = Ti.UI.createImageView({
+                url: "appicon.png"
+            });
+            var button = Ti.UI.createButton({
+                right: 10,
+                height: 30,
+                width: 80,
+                title: "Details"
+            });
+            row.add(label);
+            row.add(image);
+            row.add(button);
+            tbl_data.push(row);
+        }
+        var table = Titanium.UI.createTableView({
+            data: tbl_data,
+            searchbar: searchbar,
             top: 40,
             left: "0%",
             borderColor: "black",
             borderWidth: 0,
-            borderRadius: 0
+            borderRadius: 0,
+            headerTitle: "Ergebnisse"
         });
-        $.searchViewId.add(tableViewData);
+        $.searchViewId.add(table);
+    }
+    function showStockList(stock) {
+        showTestLayout();
+        return;
     }
     function getShareListAsynchronousAndShowIt(searchTerm) {
         showStockList(getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"'));
@@ -53,7 +74,7 @@ function Controller() {
     var __defers = {};
     $.__views.mainWindowId = Ti.UI.createWindow({
         id: "mainWindowId",
-        title: "Aktuelle Aktienkurse",
+        title: "Personen suchen",
         fullscreen: "true",
         backgroundColor: "white"
     });
@@ -72,7 +93,7 @@ function Controller() {
         top: "0%",
         left: "0%",
         width: "66%",
-        value: "Aktienkürzel suchen",
+        value: "Personen suchen",
         id: "searchFieldId"
     });
     $.__views.searchViewId.add($.__views.searchFieldId);
@@ -89,7 +110,7 @@ function Controller() {
     doSearchButtonClick ? $.__views.button.addEventListener("click", doSearchButtonClick) : __defers["$.__views.button!click!doSearchButtonClick"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var initialSearchFieldTextValue = "Aktienkürzel suchen";
+    var initialSearchFieldTextValue = "Personen suchen";
     $.searchFieldId.value = initialSearchFieldTextValue;
     $.mainWindowId.open();
     __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
