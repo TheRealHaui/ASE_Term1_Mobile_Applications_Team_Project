@@ -45,8 +45,17 @@ function doTouchStart(e) {
 }
 
 function resultListButtonClicked(e) {
+	
+			//Who called me
+		//http://developer.appcelerator.com/question/126708/respond-to-a-button-in-a-table-row-without-triggering-table-row-click
+		if (e.source.toString() == "[object TiUIButton]") {
+			//Custom data for event processing
+			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
+			alert('You clicked row ' + e.index + " " + e.source.toString() + e.source.customData + " " + e.source.toString());
+		}
 
-	alert(e.toString + " asdf " + e.type);
+
+	//alert(e.toString + " asdf " + e.type);
 
 }
 
@@ -162,33 +171,24 @@ function showTestLayout() {
 	//Row click listener
 	//Has to be used because button click listener to not work.
 	//http://developer.appcelerator.com/question/126708/respond-to-a-button-in-a-table-row-without-triggering-table-row-click
-	table.addEventListener('click', function(e) {
+	table.addEventListener('click', resultListButtonClicked);
 
-
-		//Who called me
-		//http://developer.appcelerator.com/question/126708/respond-to-a-button-in-a-table-row-without-triggering-table-row-click
-		if (e.source.toString() == "[object TiUIButton]") {
-			//Custom data for event processing
-			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
-			alert('You clicked row ' + e.index + " " + e.source.toString() + e.source.customData + " " + e.source.toString());
-		}
-
-	});
-
-
-	//In bzw. mit Alloy xml Dateien generierte Elemente müssen immer mit Dollar und Punkt
-	//Notation referenziert werden.
-	alert( $.searchViewId.getChildren() );
 	
 	var viewChildren = $.searchViewId.getChildren();
 	
-	//todo Altes Tableviewobjekt löschen und durch neues ersetzen
+	//Altes Tableviewobjekt löschen und durch neues ersetzen
 	//http://developer.appcelerator.com/question/78901/how-to-give-an-id-to-a-view-and-get-it-back-from-the-click-event
 	//http://stackoverflow.com/questions/9791275/how-to-reload-tableview-in-titanium
 	for(var i = 0; i < viewChildren.length; i++){
-		//alert( viewChildren[i].id );
+		
+		if ( viewChildren[i].id == "resultTableViewId" ){
+			$.searchViewId.remove( viewChildren[i] );
+			break;
+		}
 	}
-	
+
+	//In bzw. mit Alloy xml Dateien generierte Elemente müssen immer mit Dollar und Punkt
+	//Notation referenziert werden.	
 	$.searchViewId.add(table);
 
 }
