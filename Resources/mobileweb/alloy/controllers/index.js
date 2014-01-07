@@ -59,6 +59,7 @@ function Controller() {
             tbl_data.push(row);
         }
         var table = Titanium.UI.createTableView({
+            id: "resultTableViewId",
             data: tbl_data,
             searchbar: searchbar,
             top: 40,
@@ -71,6 +72,9 @@ function Controller() {
         table.addEventListener("click", function(e) {
             "[object TiUIButton]" == e.source.toString() && alert("You clicked row " + e.index + " " + e.source.toString() + e.source.customData + " " + e.source.toString());
         });
+        alert($.searchViewId.getChildren());
+        var viewChildren = $.searchViewId.getChildren();
+        for (var i = 0; viewChildren.length > i; i++) ;
         $.searchViewId.add(table);
     }
     function showStockList(stock) {

@@ -145,6 +145,7 @@ function showTestLayout() {
 	//http://docs.appcelerator.com/titanium/2.1/#!/guide/Scrolling_Views
 	//Funktioniert offensichtlich in Web nicht ...
 	var table = Titanium.UI.createTableView({
+		id : "resultTableViewId",
 		data : tbl_data,
 		searchbar : searchbar,
 		top : 40,
@@ -177,6 +178,17 @@ function showTestLayout() {
 
 	//In bzw. mit Alloy xml Dateien generierte Elemente müssen immer mit Dollar und Punkt
 	//Notation referenziert werden.
+	alert( $.searchViewId.getChildren() );
+	
+	var viewChildren = $.searchViewId.getChildren();
+	
+	//todo Altes Tableviewobjekt löschen und durch neues ersetzen
+	//http://developer.appcelerator.com/question/78901/how-to-give-an-id-to-a-view-and-get-it-back-from-the-click-event
+	//http://stackoverflow.com/questions/9791275/how-to-reload-tableview-in-titanium
+	for(var i = 0; i < viewChildren.length; i++){
+		//alert( viewChildren[i].id );
+	}
+	
 	$.searchViewId.add(table);
 
 }
