@@ -19,20 +19,42 @@ function Controller() {
             var row = Ti.UI.createTableViewRow();
             var label = Ti.UI.createLabel({
                 left: 10,
-                text: "Row " + (i + 1)
+                text: "Row Row Row Row Row Row" + (i + 1)
             });
-            var image = Ti.UI.createImageView({
-                image: "/imagesForAllPlatforms/appicon.png"
+            var buttonCall = Ti.UI.createButton({
+                right: 160,
+                height: 30,
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/appicon.png",
+                title: "Anrufen",
+                touchEnabled: true
             });
-            var button = Ti.UI.createButton({
+            var buttonNav = Ti.UI.createButton({
+                right: 110,
+                height: 30,
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/appicon.png",
+                title: "Karte"
+            });
+            var buttonEMail = Ti.UI.createButton({
+                right: 60,
+                height: 30,
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/appicon.png",
+                title: "eMail"
+            });
+            var buttonAdditional = Ti.UI.createButton({
                 right: 10,
                 height: 30,
-                width: 80,
-                title: "Details"
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/appicon.png",
+                title: "Weiteres"
             });
             row.add(label);
-            row.add(image);
-            row.add(button);
+            row.add(buttonCall);
+            row.add(buttonNav);
+            row.add(buttonEMail);
+            row.add(buttonAdditional);
             tbl_data.push(row);
         }
         var table = Titanium.UI.createTableView({
@@ -44,6 +66,9 @@ function Controller() {
             borderWidth: 0,
             borderRadius: 0,
             headerTitle: "Ergebnisse"
+        });
+        table.addEventListener("click", function(e) {
+            alert("You clicked row " + e.index + " " + e.source.toString());
         });
         $.searchViewId.add(table);
     }

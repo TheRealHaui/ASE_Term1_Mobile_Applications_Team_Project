@@ -44,6 +44,14 @@ function doTouchStart(e) {
 
 }
 
+
+function resultListButtonClicked(e){
+	
+	alert(e.toString + " asdf " + e.type);
+	
+}
+
+
 function showTestLayout() {
 
 	//http://docs.appcelerator.com/titanium/2.1/#!/guide/TableViews-section-29004930_TableViews-Customrows
@@ -67,24 +75,68 @@ function showTestLayout() {
 		
 		var label = Ti.UI.createLabel({
 			left : 10,
-			text : 'Row ' + (i + 1)
+			text : 'Row Row Row Row Row Row' + (i + 1)
 		});
 		
+		/*
 		//Where to put images in your project: http://stackoverflow.com/questions/15888595/where-is-the-alloy-resources-folder
 		var image = Ti.UI.createImageView({
 			image : '/imagesForAllPlatforms/appicon.png'
 		});
-		
-		var button = Ti.UI.createButton({
-			right : 10,
+		*/
+
+		var buttonCall = Ti.UI.createButton({
+			right : 160,
 			height : 30,
-			width : 80,
-			title : 'Details'
+			width : 40,
+			backgroundImage: '/imagesForAllPlatforms/appicon.png',
+			//backgroundSelectedImage:'/images/custom-slider-left.png',
+			title : 'Anrufen',
+			touchEnabled: true
 		});
 		
+		//Does not work, at least in webpages.
+		//http://docs.appcelerator.com/titanium/3.0/#!/guide/Event_Handling
+		//buttonCall.addEventListener("call",resultListButtonClicked);
+		//buttonCall.addEventListener("call", function(e){ alert(1111); } );
+		
+		var buttonNav = Ti.UI.createButton({
+			right : 110,
+			height : 30,
+			width : 40,
+			backgroundImage: '/imagesForAllPlatforms/appicon.png',
+			//backgroundSelectedImage:'/images/custom-slider-left.png',
+			title : 'Karte'
+		});
+		
+		var buttonEMail = Ti.UI.createButton({
+			right : 60,
+			height : 30,
+			width : 40,
+			backgroundImage: '/imagesForAllPlatforms/appicon.png',
+			//backgroundSelectedImage:'/images/custom-slider-left.png',
+			title : 'eMail'
+		});				
+		
+		var buttonAdditional = Ti.UI.createButton({
+			right : 10,
+			height : 30,
+			width : 40,
+			backgroundImage: '/imagesForAllPlatforms/appicon.png',
+			//backgroundSelectedImage:'/images/custom-slider-left.png',
+			title : 'Weiteres'
+		});				
+		
+		
 		row.add(label);
-		row.add(image);
-		row.add(button);
+		
+		//row.add(image);
+		
+		row.add(buttonCall);
+		row.add(buttonNav);		
+		row.add(buttonEMail);
+		row.add(buttonAdditional);				
+		
 		tbl_data.push(row);		
 	}
 
@@ -105,6 +157,15 @@ function showTestLayout() {
 		headerTitle : 'Ergebnisse',
 		//footerTitle:"Wow. That was cool!" + " todo",
 	});
+	
+	
+	//Row click listener
+	//Has to be used because button click listener to not work.
+	//http://developer.appcelerator.com/question/126708/respond-to-a-button-in-a-table-row-without-triggering-table-row-click
+	table.addEventListener('click', function(e){
+		alert('You clicked row '+e.index + " " + e.source.toString());
+	});
+
 
 	//In bzw. mit Alloy xml Dateien generierte Elemente müssen immer mit Dollar und Punkt
 	//Notation referenziert werden.
