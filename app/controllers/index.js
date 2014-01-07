@@ -62,7 +62,9 @@ function showTestLayout() {
 	}
 
 	for (var i = 0; i < 10; i++) {
+		
 		var row = Ti.UI.createTableViewRow();
+		
 		var label = Ti.UI.createLabel({
 			left : 10,
 			text : 'Row ' + (i + 1)
@@ -72,16 +74,18 @@ function showTestLayout() {
 		var image = Ti.UI.createImageView({
 			url : 'appicon.png'
 		});
+		
 		var button = Ti.UI.createButton({
 			right : 10,
 			height : 30,
 			width : 80,
 			title : 'Details'
 		});
+		
 		row.add(label);
 		row.add(image);
 		row.add(button);
-		tbl_data.push(row);
+		tbl_data.push(row);		
 	}
 
 	// now assign that array to the table's data property to add those objects as rows
