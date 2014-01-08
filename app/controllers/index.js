@@ -51,7 +51,36 @@ function resultListButtonClicked(e) {
 		if (e.source.toString() == "[object TiUIButton]") {
 			//Custom data for event processing
 			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
-			alert('You clicked row ' + e.index + " " + e.source.toString() + e.source.customData + " " + e.source.toString());
+			//alert('You clicked row ' + e.index + " " + e.source.toString() + e.source.customData + " " + e.source.toString());
+			
+			
+			//Documentation regarding opening of windows is not right.
+			//Or this does not work.
+			//http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.Window
+			
+			
+			//
+			/*
+			var additionalInformationWindow = Titanium.UI.createWindow({
+				//url:'windows/additionalinformation.js'
+				url:'test.js',
+				title: 'Test'
+				});
+			*/
+			
+			
+			//At first is the documentation wrong referring how to open new windows.
+			//Second does this work with test window/controller item and so on but not with additionalinformation window/controller item and so on.
+			
+			var win=Alloy.createController('test').getView();
+			win.open();
+			
+			
+			//http://developer.appcelerator.com/question/150413/open-new-window-using-alloy
+			//$.additionalinformation.open();
+			
+			//$.test.open();
+			
 		}
 
 

@@ -12,6 +12,12 @@ function Controller() {
     function doTouchStart() {
         $.searchFieldId.value == initialSearchFieldTextValue && ($.searchFieldId.value = "");
     }
+    function resultListButtonClicked(e) {
+        if ("[object TiUIButton]" == e.source.toString()) {
+            var win = Alloy.createController("test").getView();
+            win.open();
+        }
+    }
     function showTestLayout() {
         var tbl_data = [];
         var searchbar;
@@ -69,12 +75,12 @@ function Controller() {
             borderRadius: 0,
             headerTitle: "Ergebnisse"
         });
-        table.addEventListener("click", function(e) {
-            "[object TiUIButton]" == e.source.toString() && alert("You clicked row " + e.index + " " + e.source.toString() + e.source.customData + " " + e.source.toString());
-        });
-        alert($.searchViewId.getChildren());
+        table.addEventListener("click", resultListButtonClicked);
         var viewChildren = $.searchViewId.getChildren();
-        for (var i = 0; viewChildren.length > i; i++) ;
+        for (var i = 0; viewChildren.length > i; i++) if ("resultTableViewId" == viewChildren[i].id) {
+            $.searchViewId.remove(viewChildren[i]);
+            break;
+        }
         $.searchViewId.add(table);
     }
     function showStockList(stock) {

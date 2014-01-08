@@ -1,0 +1,7 @@
+<Alloy>
+	<Window id="additionalinformation">
+	<View class="container">
+		<Label id="thelabel" >I am the new window</Label>
+	</View>
+	</Window>
+</Alloy>
