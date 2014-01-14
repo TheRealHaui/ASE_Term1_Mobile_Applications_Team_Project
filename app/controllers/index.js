@@ -222,9 +222,82 @@ function showTestLayout() {
 
 }
 
-function showStockList(stock) {
+function showNoResultLayout() {
 
-	showTestLayout();
+	//http://docs.appcelerator.com/titanium/2.1/#!/guide/TableViews-section-29004930_TableViews-Customrows
+
+	var tbl_data = [];
+
+	var searchbar;
+
+	//Titanium searbar wird nur auf Android, iPhone und iPad unterstützt.
+	//http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.SearchBar
+	if (!OS_MOBILEWEB) {
+		searchbar = Ti.UI.createSearchBar({
+			barColor : '#385292',
+			showCancel : false
+		});
+	}
+
+
+		var row = Ti.UI.createTableViewRow();
+
+		var label = Ti.UI.createLabel({
+			left : 10,
+			text : 'Es wurde leider keine Ergebnisse gefunden'
+		});
+
+
+
+		/*
+		 //Where to put images in your project: http://stackoverflow.com/questions/15888595/where-is-the-alloy-resources-folder
+		 var image = Ti.UI.createImageView({
+		 image : '/imagesForAllPlatforms/appicon.png'
+		 });
+		 */
+
+		
+
+		row.add(label);
+
+		//row.add(image);
+
+		tbl_data.push(row);
+	
+
+	// now assign that array to the table's data property to add those objects as rows
+	//Eventuell später noch auf ScrollView oder ScrollableView umstellen.
+	//http://docs.appcelerator.com/titanium/2.1/#!/guide/Scrolling_Views
+	//Funktioniert offensichtlich in Web nicht ...
+	var table = Titanium.UI.createTableView({
+		id : "resultTableViewId",
+		data : tbl_data,
+		searchbar : searchbar,
+		top : 40,
+		left : "0%",
+		//width : 260,
+		//height : 250,
+		borderColor : "black",
+		borderWidth : 0,
+		borderRadius : 0,
+		headerTitle : 'Ergebnisse',
+		//footerTitle:"Wow. That was cool!" + " todo",
+	});
+
+	//In bzw. mit Alloy xml Dateien generierte Elemente müssen immer mit Dollar und Punkt
+	//Notation referenziert werden.	
+	$.searchViewId.add(table);
+
+}
+
+function showPersonList(persons) {
+
+	
+	//showTestLayout();
+	if (persons == null )
+		showNoResultLayout();
+	else
+		showTestLayout();	
 	//todo
 	return;
 
@@ -237,11 +310,9 @@ function showStockList(stock) {
 		backgroundColor : "white",
 		//data : [{title: 'Apples'}, {title: 'Bananas'}, {title: 'Carrots'}, {title: 'Potatoes'}],
 		data : [{
-			title : 'Aktienkürzel: ' + stock.get("sign")
+			title : 'Vorname: ' + persons.get("firstName")
 		}, {
-			title : 'Name: ' + stock.get("stockName")
-		}, {
-			title : 'aktueller Preis in $: ' + stock.get("price")
+			title : 'Nachname: ' + persons.get("lastName")
 		}],
 		top : 40,
 		left : "0%",
@@ -320,7 +391,7 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 
 	if (OS_MOBILEWEB) {
 
-		showStockList(getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"'));
+		showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz, Hauptstrasse", "066412345678"'));
 
 		return;
 
@@ -351,7 +422,7 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 
 			//alert('success' + this.responseText);
 
-			showStockList(getStockModelFromWebserviceContent(this.responseText));
+			showStockList(getPersonModelFromWebserviceContent(this.responseText));
 
 		},
 
@@ -372,7 +443,7 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 
 }
 
-function getStockModelFromWebserviceContent(webserviceContent) {
+function getPersonModelFromWebserviceContent(webserviceContent) {
 
 	var field = webserviceContent.split(",");
 
@@ -381,15 +452,17 @@ function getStockModelFromWebserviceContent(webserviceContent) {
 	//alert(field[2].replace("\"","").replace("\"","") );
 
 	//http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
-	var stock = Alloy.createModel("stock", {
-		sign : field[0].replace("\"", "").replace("\"", ""),
-		stockName : field[1].replace("\"", "").replace("\"", ""),
-		price : field[2].replace("\"", "").replace("\"", "")
+	var person = Alloy.createModel("person", {
+		firstName : field[0].replace("\"", "").replace("\"", ""),
+		lastName : field[1].replace("\"", "").replace("\"", ""),
+		emailAddress : field[2].replace("\"", "").replace("\"", ""),
+		address : field[3].replace("\"", "").replace("\"", ""),
+		telephoneNumber : field[3].replace("\"", "").replace("\"", "")
 	});
 
 	//alert (stock.get("sign"));
 
-	return stock;
+	return person;
 
 }
 
