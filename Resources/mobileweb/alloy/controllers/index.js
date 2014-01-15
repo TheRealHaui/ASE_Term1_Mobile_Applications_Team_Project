@@ -83,22 +83,47 @@ function Controller() {
         }
         $.searchViewId.add(table);
     }
-    function showStockList(stock) {
-        showTestLayout();
+    function showNoResultLayout() {
+        var tbl_data = [];
+        var searchbar;
+        var row = Ti.UI.createTableViewRow();
+        var label = Ti.UI.createLabel({
+            left: 10,
+            text: "Es wurde leider keine Ergebnisse gefunden"
+        });
+        row.add(label);
+        tbl_data.push(row);
+        var table = Titanium.UI.createTableView({
+            id: "resultTableViewId",
+            data: tbl_data,
+            searchbar: searchbar,
+            top: 40,
+            left: "0%",
+            borderColor: "black",
+            borderWidth: 0,
+            borderRadius: 0,
+            headerTitle: "Ergebnisse"
+        });
+        $.searchViewId.add(table);
+    }
+    function showPersonList(persons) {
+        null == persons ? showNoResultLayout() : showTestLayout();
         return;
     }
     function getShareListAsynchronousAndShowIt(searchTerm) {
-        showStockList(getStockModelFromWebserviceContent('"AAPL","Apple Inc.","540.98"'));
+        showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz, Hauptstrasse", "066412345678"'));
         return;
     }
-    function getStockModelFromWebserviceContent(webserviceContent) {
+    function getPersonModelFromWebserviceContent(webserviceContent) {
         var field = webserviceContent.split(",");
-        var stock = Alloy.createModel("stock", {
-            sign: field[0].replace('"', "").replace('"', ""),
-            stockName: field[1].replace('"', "").replace('"', ""),
-            price: field[2].replace('"', "").replace('"', "")
+        var person = Alloy.createModel("person", {
+            firstName: field[0].replace('"', "").replace('"', ""),
+            lastName: field[1].replace('"', "").replace('"', ""),
+            emailAddress: field[2].replace('"', "").replace('"', ""),
+            address: field[3].replace('"', "").replace('"', ""),
+            telephoneNumber: field[3].replace('"', "").replace('"', "")
         });
-        return stock;
+        return person;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
