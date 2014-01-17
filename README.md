@@ -1,18 +1,24 @@
 
 
-Mit der vorliegenden Applikation kann der aktuelle Kurs von einzelnen Aktion durch Eingabe des Aktienkürzels angezeigt werden.
+Mit der vorliegenden Applikation kann a lá Google, d.h. Volltext, nach Personen auf dem Mobiltelefon gesucht werden. 
+
+
+todo bla bla
+
+
 
 ACHTUNG:
-Die mobile auf HTML 5 basierende Webseitenversion zeigt immer den gleichen Wert für die Aktie der Firma Apple an.
+Die mobile auf HTML 5 basierende Webseitenversion zeigt immer, unabhängig von der Sucheingabe der BenutzerIn, die gleiche Ergebnismenge an.
 Der Grund hierfür liegt in der in den Browsern umgesetzten same-origin-policy.
 Dazu siehe auch: http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.Network.HTTPClient
 
 
-Die Android Version funktioniert einwandfrei und fragt ein Webservice der Firma Yahoo ab.
+Die Android Version funktioniert einwandfrei und fragt das JSON Webserive welches entwickelt wurde ab.
+Dieses kann auch hier abgerufen werden: http://199.231.93.151:8080/perssearch/searchPerson/[Suchbegriff]
  
  
 Für Tizen kann derzeit keine Version bereitgestellt werden da der hierfür notwendige Emulator für Windows x64 Fehler beinhaltet durch
-welche er nicht startbar ist. Dafür beinhaltet zum Glück die aktuelle Version des Appcelerator Titanium Entwicklungsstudios einen
+welche er nicht startbar ist. Andererseits beinhaltet die aktuelle Version des Appcelerator Titanium Entwicklungsstudios einen
 Bug welches verhindert dass dieses momentan auf Linux verwendbar ist.
 Genau gesagt ist es ein Benennungsproblem von node.js welches von Titanium verwendet wird (node.js wurde auf Linux auf nodejs umbenannt usw. usf.)
 
