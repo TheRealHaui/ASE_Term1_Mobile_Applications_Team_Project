@@ -46,7 +46,7 @@ function doTouchStart(e) {
 
 function resultListButtonClicked(e) {
 	
-			//Who called me
+		//Who called me
 		//http://developer.appcelerator.com/question/126708/respond-to-a-button-in-a-table-row-without-triggering-table-row-click
 		if (e.source.toString() == "[object TiUIButton]") {
 			//Custom data for event processing
