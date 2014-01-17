@@ -1,5 +1,6 @@
 
 
+todo
 
 
 Um die mobile HTML 5 Applikation zu verwenden müssen alle Dateien welche im Ordner 
