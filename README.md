@@ -1,6 +1,5 @@
 
 
-
 Mit der vorliegenden Applikation kann der aktuelle Kurs von einzelnen Aktion durch Eingabe des Aktienkürzels angezeigt werden.
 
 ACHTUNG:
