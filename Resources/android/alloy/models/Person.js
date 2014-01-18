@@ -1,9 +1,12 @@
 exports.definition = {
     config: {
         columns: {
-            sign: "string",
-            stockName: "string",
-            currentPrice: "decimal"
+            id: "decimal",
+            firstname: "string",
+            lastname: "string",
+            address: "string",
+            emailAddress: "string",
+            telephonNumber: "string"
         }
     },
     extendModel: function(Model) {
@@ -18,9 +21,9 @@ exports.definition = {
 
 var Alloy = require("alloy"), _ = require("alloy/underscore")._, model, collection;
 
-model = Alloy.M("Stock", exports.definition, []);
+model = Alloy.M("Person", exports.definition, []);
 
-collection = Alloy.C("Stock", exports.definition, model);
+collection = Alloy.C("Person", exports.definition, model);
 
 exports.Model = model;
 
