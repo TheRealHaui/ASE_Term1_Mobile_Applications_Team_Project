@@ -88,7 +88,7 @@ function resultListButtonClicked(e) {
 
 }
 
-function showTestLayout() {
+function showTestLayout(persons) {
 
 	//http://docs.appcelerator.com/titanium/2.1/#!/guide/TableViews-section-29004930_TableViews-Customrows
 
@@ -105,14 +105,26 @@ function showTestLayout() {
 		});
 	}
 
-	for (var i = 0; i < 10; i++) {
+   for (var i=0; i < persons.length; i++ ) {
+
+
+        var person = persons.at(i);
+        console.log(person.get("firstName"));
+    //alert(person.get("firstName"));
+        var row =  Ti.UI.createTableViewRow();
+        var label = Ti.UI.createLabel({
+            left : 10,
+            text : person.get("firstName") + " " + person.get("lastName")
+        });
+
+/*	for (var i = 0; i < 10; i++) {
 
 		var row = Ti.UI.createTableViewRow();
 
 		var label = Ti.UI.createLabel({
 			left : 10,
 			text : 'Row Row Row Row Row Row' + (i + 1)
-		});
+		});*/
 
 		/*
 		 //Where to put images in your project: http://stackoverflow.com/questions/15888595/where-is-the-alloy-resources-folder
@@ -297,7 +309,7 @@ function showPersonList(persons) {
 	if (persons == null )
 		showNoResultLayout();
 	else
-		showTestLayout();	
+		showTestLayout(persons);	
 	//todo
 	return;
 
@@ -462,7 +474,16 @@ function getPersonModelFromWebserviceContent(webserviceContent) {
 
 	//alert (stock.get("sign"));
 
-	return person;
+	  var library = Alloy.createCollection("person");
+    library.add(person);
+    library.add(person);
+
+    
+    //    alert(library.length);
+    //alert(library.length());
+    //alert (stock.get("sign"));
+
+    return library;   
 
 }
 
