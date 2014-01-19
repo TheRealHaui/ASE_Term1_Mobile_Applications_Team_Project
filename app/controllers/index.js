@@ -107,14 +107,14 @@ function showTestLayout(persons) {
 
    for (var i=0; i < persons.length; i++ ) {
 
-
+		console.log("i:" + i);
         var person = persons.at(i);
         console.log(person.get("firstName"));
     //alert(person.get("firstName"));
         var row =  Ti.UI.createTableViewRow();
         var label = Ti.UI.createLabel({
             left : 10,
-            text : person.get("firstName") + " " + person.get("lastName")
+            text : person.get("firstName") + " " + person.get("lastName") + " " + person.get("telephonNumber")
         });
 
 /*	for (var i = 0; i < 10; i++) {
@@ -137,7 +137,7 @@ function showTestLayout(persons) {
 			right : 160,
 			height : 30,
 			width : 40,
-			backgroundImage : '/imagesForAllPlatforms/appicon.png',
+			backgroundImage : '/imagesForAllPlatforms/telefonhoerer.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
 			title : 'Anrufen',
 			touchEnabled : true,
@@ -181,7 +181,11 @@ function showTestLayout(persons) {
 		row.add(label);
 
 		//row.add(image);
-
+		buttonCall.addEventListener('click', function (e)
+		{
+			console.log(person.get("telephonNumber"));
+			Titanium.Platform.openURL('tel:'+person.get("telephonNumber"));
+		});
 		row.add(buttonCall);
 		row.add(buttonNav);
 		row.add(buttonEMail);
@@ -306,7 +310,7 @@ function showPersonList(persons) {
 
 	
 	//showTestLayout();
-	if (persons == null )
+	if (persons == null || persons.length ===0 )
 		showNoResultLayout();
 	else
 		showTestLayout(persons);	
@@ -403,7 +407,7 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 
 	if (OS_MOBILEWEB) {
 
-		showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz, Hauptstrasse", "066412345678"'));
+		showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz Hauptstrasse", "066412345678"'));
 
 		return;
 
@@ -469,16 +473,25 @@ function getPersonModelFromWebserviceContent(webserviceContent) {
 		lastName : field[1].replace("\"", "").replace("\"", ""),
 		emailAddress : field[2].replace("\"", "").replace("\"", ""),
 		address : field[3].replace("\"", "").replace("\"", ""),
-		telephoneNumber : field[3].replace("\"", "").replace("\"", "")
+		telephonNumber : field[4].replace("\"", "").replace("\"", "")
 	});
-
+  
 	//alert (stock.get("sign"));
 
 	  var library = Alloy.createCollection("person");
-    library.add(person);
-    library.add(person);
-
     
+  library.add(person);
+   /*   console.log(library.length);
+    	var person = Alloy.createModel("person", {
+		firstName : "Mike",
+		lastName : "Last",
+		emailAddress : "mail",
+		address : "graz",
+		telephonNumber : "12345"
+	});
+    library.add(person);
+*/
+    console.log(library.length);
     //    alert(library.length);
     //alert(library.length());
     //alert (stock.get("sign"));
