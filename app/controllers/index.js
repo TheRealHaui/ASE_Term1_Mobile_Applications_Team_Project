@@ -187,9 +187,9 @@ function showTestLayout(persons) {
 			right : 60,
 			height : 30,
 			width : 40,
-			backgroundImage : '/imagesForAllPlatforms/appicon.png',
+			backgroundImage : '/imagesForAllPlatforms/email.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			title : 'eMail'
+			
 		});
 
 		var buttonAdditional = Ti.UI.createButton({
@@ -217,13 +217,20 @@ function showTestLayout(persons) {
   			console.log("buttonclick Additional");
 		});
 		
+		buttonEMail.addEventListener('click', function(e)
+		{
+			var emailDialog = Ti.UI.createEmailDialog();
+			emailDialog.subject = "Hello from Titanium";
+			emailDialog.toRecipients = [person.get("emailAddress")];
+			emailDialog.messageBody = 'Appcelerator Titanium Sucks!';
+			emailDialog.open();
+		});
+			
 		row.add(buttonCall);
 		row.add(buttonNav);
 		row.add(buttonEMail);
 		row.add(buttonAdditional);
 		
-		
-
 		tbl_data.push(row);
 	}
 
@@ -439,8 +446,9 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 	//So development can go on in browser.
 
 	if (OS_MOBILEWEB) {
-
-		showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz Hauptstrasse", "066412345678"'));
+		
+		var content = '[{"address":"asdf","emailAddress":"asdf","firstname":"asdf","id":1,"lastname":"asdf","telephonNumber":"asdf","version":0},{"address":"Allestrasse 12, 8010 Graz, Austria","emailAddress":"h.s@bekiffter.org","firstname":"Hans","id":2,"lastname":"Söllner","telephonNumber":"113 21423","version":0},{"address":"Grazer Straße 12, 8010 Graz, Austria","emailAddress":"m.kronberger@hotmail.com","firstname":"Michael","id":3,"lastname":"Kronberger","telephonNumber":"234 234 234","version":0},{"address":"Nirgendwo in Austria","emailAddress":"blabla@nirgendwo.at","firstname":"Bernhard","id":4,"lastname":"Eibegger","telephonNumber":"0664 1234567","version":0},{"address":"a","emailAddress":"a","firstname":"a","id":5,"lastname":"a","telephonNumber":"1","version":0}]';
+		showPersonList(getPersonModelFromWebserviceContent(content));
 
 		return;
 
@@ -457,7 +465,7 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 	//The given error message of Alloy was "error".
 	//And the given error message of the so wonderful juhu juhu new super duppa framework node.js was "error in uglify-js".
 	//You are so great ...
-	var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + "&f=snl1";
+	var url = "http://199.231.93.151:8080/perssearch/searchPerson/" + searchTerm;
 
 	var client = Ti.Network.createHTTPClient({
 
@@ -471,7 +479,8 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 
 			//alert('success' + this.responseText);
 
-			showStockList(getPersonModelFromWebserviceContent(this.responseText));
+			showPersonList(getPersonModelFromWebserviceContent(this.responseText));
+		//	showStockList(getPersonModelFromWebserviceContent(this.responseText));
 
 		},
 
@@ -496,24 +505,28 @@ function getPersonModelFromWebserviceContent(webserviceContent) {
 
 	var field = webserviceContent.split(",");
 	
-/*	var json = JSON.parse(webserviceContent);
+	var json = JSON.parse(webserviceContent);
+	
+	var library = Alloy.createCollection("person");
 	
 	for (i = 0; i < json.length; i++) {
-		pers = json.
-	var person = Alloy.createModel("person", {
-		firstName : json.valueOf("firstname"),
-		lastName : json.valueOf("lastname"),
-		emailAddress : json.valueOf("emailAddress"),
-		address : json.valueOf("address"),
-		telephonNumber : json.valueOf("telephonNumber")
-	});
-*/
+		
+		var person = Alloy.createModel("person", {
+			firstName : json[i].firstname,
+			lastName : json[i].lastname,
+			emailAddress : json[i].emailAddress,
+			address : json[i].address,
+			telephonNumber : json[i].telephonNumber
+		});
+	    library.add(person);
+   }
+
 	//alert(field[0].replace("\"","").replace("\"","") );
 	//alert(field[1].replace("\"","").replace("\"","") );
 	//alert(field[2].replace("\"","").replace("\"","") );
 
 	//http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
-	var person = Alloy.createModel("person", {
+	/*var person = Alloy.createModel("person", {
 		firstName : field[0].replace("\"", "").replace("\"", ""),
 		lastName : field[1].replace("\"", "").replace("\"", ""),
 		emailAddress : field[2].replace("\"", "").replace("\"", ""),
