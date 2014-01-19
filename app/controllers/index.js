@@ -4,11 +4,35 @@ $.searchFieldId.value = initialSearchFieldTextValue;
 
 //Display page
 $.mainWindowId.open();
+var offset = 100;
+var lastTime = new Date().getTime();
+var filter = 1.0;
+//last values
+var last_x = 0;
+var last_y = 0;
 
-/*
 var accelerometerCallback = function(e) {
-  $.searchFieldId.value  = "Personen suchen";
-  $.searchFieldId.focus();
+	
+	 //get current time
+    var now = new Date().getTime();
+     
+    //check if time offset is passed
+    if(lastTime + offset < now)
+    {
+    	if (last_x > e.x +5)	
+    	{
+    		//Ti.API.info("schütteln last x:" +last_x + " x" + e.x);
+    		last_x = e.x * filter + last_x * (1 - filter);
+    		$.searchFieldId.value = initialSearchFieldTextValue;
+    	}	
+        else {
+           last_x = e.x * filter + last_x * (1 - filter);
+        }
+
+        //store last update time
+        lastTime = now;
+    }
+  
   
 };
 
@@ -27,7 +51,7 @@ if (Ti.Platform.model === 'Simulator' || Ti.Platform.model.indexOf('sdk') !== -1
     });
   }
 }
-*/
+
 //Include webservice code that is in own javascript file
 //ATTENTION
 //Directory has been created on our own.
