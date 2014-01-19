@@ -139,11 +139,11 @@ function showTestLayout(persons) {
 			width : 40,
 			backgroundImage : '/imagesForAllPlatforms/telefonhoerer.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			title : 'Anrufen',
+			title : 'Call',
 			touchEnabled : true,
 			//Transmit custom data for event processing
 			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
-			customData : "my custom data"
+			//customData : "my custom data"
 		});
 
 		//Does not work, at least in webpages.
