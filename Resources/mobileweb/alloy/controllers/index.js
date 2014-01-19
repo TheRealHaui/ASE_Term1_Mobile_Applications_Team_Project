@@ -22,6 +22,7 @@ function Controller() {
         var tbl_data = [];
         var searchbar;
         for (var i = 0; persons.length > i; i++) {
+            console.log("i:" + i);
             var person = persons.at(i);
             console.log(person.get("firstName"));
             var row = Ti.UI.createTableViewRow();
@@ -33,17 +34,15 @@ function Controller() {
                 right: 160,
                 height: 30,
                 width: 40,
-                backgroundImage: "/imagesForAllPlatforms/appicon.png",
-                title: "Anrufen",
-                touchEnabled: true,
-                customData: "my custom data"
+                backgroundImage: "/imagesForAllPlatforms/telefonhoerer.png",
+                title: "Call",
+                touchEnabled: true
             });
             var buttonNav = Ti.UI.createButton({
                 right: 110,
                 height: 30,
                 width: 40,
-                backgroundImage: "/imagesForAllPlatforms/appicon.png",
-                title: "Karte"
+                backgroundImage: "/imagesForAllPlatforms/map.png"
             });
             var buttonEMail = Ti.UI.createButton({
                 right: 60,
@@ -60,6 +59,13 @@ function Controller() {
                 title: "Weiteres"
             });
             row.add(label);
+            buttonCall.addEventListener("click", function() {
+                console.log(person.get("telephonNumber"));
+                Titanium.Platform.openURL("tel:" + person.get("telephonNumber"));
+            });
+            buttonAdditional.addEventListener("click", function() {
+                console.log("buttonclick Additional");
+            });
             row.add(buttonCall);
             row.add(buttonNav);
             row.add(buttonEMail);
@@ -109,11 +115,11 @@ function Controller() {
         $.searchViewId.add(table);
     }
     function showPersonList(persons) {
-        null == persons ? showNoResultLayout() : showTestLayout(persons);
+        null == persons || 0 === persons.length ? showNoResultLayout() : showTestLayout(persons);
         return;
     }
     function getShareListAsynchronousAndShowIt(searchTerm) {
-        showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz, Hauptstrasse", "066412345678"'));
+        showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz Hauptstrasse", "066412345678"'));
         return;
     }
     function getPersonModelFromWebserviceContent(webserviceContent) {
@@ -123,11 +129,11 @@ function Controller() {
             lastName: field[1].replace('"', "").replace('"', ""),
             emailAddress: field[2].replace('"', "").replace('"', ""),
             address: field[3].replace('"', "").replace('"', ""),
-            telephoneNumber: field[3].replace('"', "").replace('"', "")
+            telephonNumber: field[4].replace('"', "").replace('"', "")
         });
         var library = Alloy.createCollection("person");
         library.add(person);
-        library.add(person);
+        console.log(library.length);
         return library;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
