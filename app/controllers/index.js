@@ -114,7 +114,7 @@ function showTestLayout(persons) {
         var row =  Ti.UI.createTableViewRow();
         var label = Ti.UI.createLabel({
             left : 10,
-            text : person.get("firstName") + " " + person.get("lastName") + " " + person.get("telephonNumber")
+            text : person.get("firstName") + " " + person.get("lastName") 
         });
 
 /*	for (var i = 0; i < 10; i++) {
