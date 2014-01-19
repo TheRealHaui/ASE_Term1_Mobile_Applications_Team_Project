@@ -1,12 +1,11 @@
 <Alloy>
-	<Window id="additionalinformation">
-		<ScrollView class="container">
-			<Label id="lblFirstname" ></Label>
-			<Label id="lblLastname" ></Label>
-			<Label id="lblAddress" ></Label>
-			<Label id="lblEmail" ></Label>
-			<Label id="lblTelefonNo" ></Label>
-			
+    <Window id="win2" backgroundColor="white" exitOnClose="false" fullscreen="false" title="Details" layout="vertical">
+        <ScrollView id="scrollView" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" scrollType="vertical" layout="vertical" height="90%" width="90%">
+			<Label id="lblFirstname"/>
+			<Label id="lblLastname"/>
+			<Label id="lblAddress"/>
+			<Label id="lblEmail"/>
+			<Label id="lblTelefonNo"/>
 		</ScrollView>
 	</Window>
 </Alloy>
