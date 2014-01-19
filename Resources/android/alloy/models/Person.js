@@ -7,6 +7,10 @@ exports.definition = {
             address: "string",
             emailAddress: "string",
             telephonNumber: "string"
+        },
+        adapter: {
+            type: "properties",
+            collection_name: "persons"
         }
     },
     extendModel: function(Model) {

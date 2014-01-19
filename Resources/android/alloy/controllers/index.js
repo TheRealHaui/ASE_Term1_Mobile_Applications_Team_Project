@@ -34,9 +34,12 @@ function Controller() {
             lastName: field[1].replace('"', "").replace('"', ""),
             emailAddress: field[2].replace('"', "").replace('"', ""),
             address: field[3].replace('"', "").replace('"', ""),
-            telephoneNumber: field[3].replace('"', "").replace('"', "")
+            telephonNumber: field[4].replace('"', "").replace('"', "")
         });
-        return person;
+        var library = Alloy.createCollection("person");
+        library.add(person);
+        console.log(library.length);
+        return library;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";

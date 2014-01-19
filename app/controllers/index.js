@@ -5,6 +5,29 @@ $.searchFieldId.value = initialSearchFieldTextValue;
 //Display page
 $.mainWindowId.open();
 
+/*
+var accelerometerCallback = function(e) {
+  $.searchFieldId.value  = "Personen suchen";
+  $.searchFieldId.focus();
+  
+};
+
+if (Ti.Platform.model === 'Simulator' || Ti.Platform.model.indexOf('sdk') !== -1 ){
+  alert('Accelerometer does not work on a virtual device');
+} else {
+  Ti.Accelerometer.addEventListener('update', accelerometerCallback);
+  if (Ti.Platform.name === 'android'){
+    Ti.Android.currentActivity.addEventListener('pause', function(e) {
+      Ti.API.info("removing accelerometer callback on pause");
+      Ti.Accelerometer.removeEventListener('update', accelerometerCallback);
+    });
+    Ti.Android.currentActivity.addEventListener('resume', function(e) {
+      Ti.API.info("adding accelerometer callback on resume");
+      Ti.Accelerometer.addEventListener('update', accelerometerCallback);
+    });
+  }
+}
+*/
 //Include webservice code that is in own javascript file
 //ATTENTION
 //Directory has been created on our own.
@@ -155,9 +178,9 @@ function showTestLayout(persons) {
 			right : 110,
 			height : 30,
 			width : 40,
-			backgroundImage : '/imagesForAllPlatforms/appicon.png',
+			backgroundImage : '/imagesForAllPlatforms/map.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			title : 'Karte'
+			
 		});
 
 		var buttonEMail = Ti.UI.createButton({
@@ -186,10 +209,20 @@ function showTestLayout(persons) {
 			console.log(person.get("telephonNumber"));
 			Titanium.Platform.openURL('tel:'+person.get("telephonNumber"));
 		});
+		
+		buttonAdditional.addEventListener('click', function(e)
+		{
+			var win = Alloy.createController('additionalinformation',person).getView();
+  			win.open();
+  			console.log("buttonclick Additional");
+		});
+		
 		row.add(buttonCall);
 		row.add(buttonNav);
 		row.add(buttonEMail);
 		row.add(buttonAdditional);
+		
+		
 
 		tbl_data.push(row);
 	}
@@ -462,7 +495,19 @@ function getShareListAsynchronousAndShowIt(searchTerm) {
 function getPersonModelFromWebserviceContent(webserviceContent) {
 
 	var field = webserviceContent.split(",");
-
+	
+/*	var json = JSON.parse(webserviceContent);
+	
+	for (i = 0; i < json.length; i++) {
+		pers = json.
+	var person = Alloy.createModel("person", {
+		firstName : json.valueOf("firstname"),
+		lastName : json.valueOf("lastname"),
+		emailAddress : json.valueOf("emailAddress"),
+		address : json.valueOf("address"),
+		telephonNumber : json.valueOf("telephonNumber")
+	});
+*/
 	//alert(field[0].replace("\"","").replace("\"","") );
 	//alert(field[1].replace("\"","").replace("\"","") );
 	//alert(field[2].replace("\"","").replace("\"","") );
