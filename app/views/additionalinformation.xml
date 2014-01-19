@@ -6,6 +6,7 @@
 			<Label id="lblAddress"/>
 			<Label id="lblEmail"/>
 			<Label id="lblTelefonNo"/>
+			<View id="mapview"/>
 		</ScrollView>
 	</Window>
 </Alloy>

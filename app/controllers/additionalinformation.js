@@ -10,3 +10,26 @@ $.lblLastname.text = args.get("lastname") || '';
 $.lblAddress.text = args.get("address") || '';
 $.lblEmail.text = args.get("emailAddress") || '';
 $.lblTelefonNo.text = args.get("telephonNumber") || '';
+
+var MapModule = require('ti.map');
+
+var personlatitude = 47.213243;
+var personlongitude = 14.830806;
+
+var personlocation = MapModule.createAnnotation({ 
+    latitude: personlatitude,
+    longitude: personlongitude,
+    pincolor: MapModule.ANNOTATION_RED,  
+    title: args.get("lastname")
+});
+
+var mv = MapModule.createView({
+    mapType: MapModule.NORMAL_TYPE,
+    region: {latitude:personlatitude, longitude:personlongitude, latitudeDelta:0.02, longitudeDelta:0.02},
+    animate:true,
+    regionFit:true,
+    userLocation:true,
+    annotations:[personlocation]
+});
+
+$.mapview.add(mv);

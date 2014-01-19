@@ -12,11 +12,133 @@ function Controller() {
     function doTouchStart() {
         $.searchFieldId.value == initialSearchFieldTextValue && ($.searchFieldId.value = "");
     }
+    function resultListButtonClicked(e) {
+        if ("[object TiUIButton]" == e.source.toString()) {
+            var win = Alloy.createController("test").getView();
+            win.open();
+        }
+    }
+    function showTestLayout(persons) {
+        var tbl_data = [];
+        var searchbar;
+        searchbar = Ti.UI.createSearchBar({
+            barColor: "#385292",
+            showCancel: false
+        });
+        for (var i = 0; persons.length > i; i++) {
+            console.log("i:" + i);
+            var person = persons.at(i);
+            console.log(person.get("firstName"));
+            var row = Ti.UI.createTableViewRow();
+            var label = Ti.UI.createLabel({
+                left: 10,
+                text: person.get("firstName") + " " + person.get("lastName")
+            });
+            var buttonCall = Ti.UI.createButton({
+                right: 160,
+                height: 30,
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/telefonhoerer.png",
+                title: "Call",
+                touchEnabled: true
+            });
+            var buttonNav = Ti.UI.createButton({
+                right: 110,
+                height: 30,
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/map.png"
+            });
+            var buttonEMail = Ti.UI.createButton({
+                right: 60,
+                height: 30,
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/email.png"
+            });
+            var buttonAdditional = Ti.UI.createButton({
+                right: 10,
+                height: 30,
+                width: 40,
+                backgroundImage: "/imagesForAllPlatforms/appicon.png",
+                title: "Weiteres"
+            });
+            row.add(label);
+            buttonCall.addEventListener("click", function() {
+                console.log(person.get("telephonNumber"));
+                Titanium.Platform.openURL("tel:" + person.get("telephonNumber"));
+            });
+            buttonAdditional.addEventListener("click", function() {
+                var win = Alloy.createController("additionalinformation", person).getView();
+                win.open();
+                console.log("buttonclick Additional");
+            });
+            buttonEMail.addEventListener("click", function() {
+                var emailDialog = Ti.UI.createEmailDialog();
+                emailDialog.subject = "Hello from Titanium";
+                emailDialog.toRecipients = [ person.get("emailAddress") ];
+                emailDialog.messageBody = "Appcelerator Titanium Sucks!";
+                emailDialog.open();
+            });
+            row.add(buttonCall);
+            row.add(buttonNav);
+            row.add(buttonEMail);
+            row.add(buttonAdditional);
+            tbl_data.push(row);
+        }
+        var table = Titanium.UI.createTableView({
+            id: "resultTableViewId",
+            data: tbl_data,
+            searchbar: searchbar,
+            top: 40,
+            left: "0%",
+            borderColor: "black",
+            borderWidth: 0,
+            borderRadius: 0,
+            headerTitle: "Ergebnisse"
+        });
+        table.addEventListener("click", resultListButtonClicked);
+        var viewChildren = $.searchViewId.getChildren();
+        for (var i = 0; viewChildren.length > i; i++) if ("resultTableViewId" == viewChildren[i].id) {
+            $.searchViewId.remove(viewChildren[i]);
+            break;
+        }
+        $.searchViewId.add(table);
+    }
+    function showNoResultLayout() {
+        var tbl_data = [];
+        var searchbar;
+        searchbar = Ti.UI.createSearchBar({
+            barColor: "#385292",
+            showCancel: false
+        });
+        var row = Ti.UI.createTableViewRow();
+        var label = Ti.UI.createLabel({
+            left: 10,
+            text: "Es wurde leider keine Ergebnisse gefunden"
+        });
+        row.add(label);
+        tbl_data.push(row);
+        var table = Titanium.UI.createTableView({
+            id: "resultTableViewId",
+            data: tbl_data,
+            searchbar: searchbar,
+            top: 40,
+            left: "0%",
+            borderColor: "black",
+            borderWidth: 0,
+            borderRadius: 0,
+            headerTitle: "Ergebnisse"
+        });
+        $.searchViewId.add(table);
+    }
+    function showPersonList(persons) {
+        null == persons || 0 === persons.length ? showNoResultLayout() : showTestLayout(persons);
+        return;
+    }
     function getShareListAsynchronousAndShowIt(searchTerm) {
-        var url = "http://finance.yahoo.com/d/quotes.csv?s=" + searchTerm + "&f=snl1";
+        var url = "http://199.231.93.151:8080/perssearch/searchPerson/" + searchTerm;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
-                showStockList(getPersonModelFromWebserviceContent(this.responseText));
+                showPersonList(getPersonModelFromWebserviceContent(this.responseText));
             },
             onerror: function(e) {
                 Ti.API.debug(e.error);
@@ -28,16 +150,19 @@ function Controller() {
         client.send();
     }
     function getPersonModelFromWebserviceContent(webserviceContent) {
-        var field = webserviceContent.split(",");
-        var person = Alloy.createModel("person", {
-            firstName: field[0].replace('"', "").replace('"', ""),
-            lastName: field[1].replace('"', "").replace('"', ""),
-            emailAddress: field[2].replace('"', "").replace('"', ""),
-            address: field[3].replace('"', "").replace('"', ""),
-            telephonNumber: field[4].replace('"', "").replace('"', "")
-        });
+        webserviceContent.split(",");
+        var json = JSON.parse(webserviceContent);
         var library = Alloy.createCollection("person");
-        library.add(person);
+        for (i = 0; json.length > i; i++) {
+            var person = Alloy.createModel("person", {
+                firstName: json[i].firstname,
+                lastName: json[i].lastname,
+                emailAddress: json[i].emailAddress,
+                address: json[i].address,
+                telephonNumber: json[i].telephonNumber
+            });
+            library.add(person);
+        }
         console.log(library.length);
         return library;
     }
@@ -90,6 +215,31 @@ function Controller() {
     var initialSearchFieldTextValue = "Personen suchen";
     $.searchFieldId.value = initialSearchFieldTextValue;
     $.mainWindowId.open();
+    var offset = 100;
+    var lastTime = new Date().getTime();
+    var filter = 1;
+    var last_x = 0;
+    var accelerometerCallback = function(e) {
+        var now = new Date().getTime();
+        if (now > lastTime + offset) {
+            if (last_x > e.x + 5) {
+                last_x = e.x * filter + last_x * (1 - filter);
+                $.searchFieldId.value = initialSearchFieldTextValue;
+            } else last_x = e.x * filter + last_x * (1 - filter);
+            lastTime = now;
+        }
+    };
+    if ("Simulator" === Ti.Platform.model || -1 !== Ti.Platform.model.indexOf("sdk")) alert("Accelerometer does not work on a virtual device"); else {
+        Ti.Accelerometer.addEventListener("update", accelerometerCallback);
+        Ti.Android.currentActivity.addEventListener("pause", function() {
+            Ti.API.info("removing accelerometer callback on pause");
+            Ti.Accelerometer.removeEventListener("update", accelerometerCallback);
+        });
+        Ti.Android.currentActivity.addEventListener("resume", function() {
+            Ti.API.info("adding accelerometer callback on resume");
+            Ti.Accelerometer.addEventListener("update", accelerometerCallback);
+        });
+    }
     __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
     __defers["$.__views.searchFieldId!touchstart!doTouchStart"] && $.__views.searchFieldId.addEventListener("touchstart", doTouchStart);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);
