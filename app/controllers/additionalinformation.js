@@ -5,10 +5,8 @@ var args = arguments[0] || {};
  */
 
 // initialize the labels
-$.lblFirstname.text = args.firstname || '';
-$.lblLastname.text = args.lastname || '';
-$.lblAddress.text = args.address || '';
-$.lblEmail.text = args.emailAddress || '';
-$.lblTelefonNo.text = args.telephonNumber || '';
-
-
+$.lblFirstname.text = args.get("firstname") || '';
+$.lblLastname.text = args.get("lastname") || '';
+$.lblAddress.text = args.get("address") || '';
+$.lblEmail.text = args.get("emailAddress") || '';
+$.lblTelefonNo.text = args.get("telephonNumber") || '';
