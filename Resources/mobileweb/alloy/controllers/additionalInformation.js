@@ -10,18 +10,38 @@ function Controller() {
         id: "additionalinformation"
     });
     $.__views.additionalinformation && $.addTopLevelView($.__views.additionalinformation);
-    $.__views.__alloyId0 = Ti.UI.createView({
+    $.__views.__alloyId0 = Ti.UI.createScrollView({
         id: "__alloyId0"
     });
     $.__views.additionalinformation.add($.__views.__alloyId0);
-    $.__views.thelabel = Ti.UI.createLabel({
-        text: "I am the new window",
-        id: "thelabel"
+    $.__views.lblFirstname = Ti.UI.createLabel({
+        id: "lblFirstname"
     });
-    $.__views.__alloyId0.add($.__views.thelabel);
+    $.__views.__alloyId0.add($.__views.lblFirstname);
+    $.__views.lblLastname = Ti.UI.createLabel({
+        id: "lblLastname"
+    });
+    $.__views.__alloyId0.add($.__views.lblLastname);
+    $.__views.lblAddress = Ti.UI.createLabel({
+        id: "lblAddress"
+    });
+    $.__views.__alloyId0.add($.__views.lblAddress);
+    $.__views.lblEmail = Ti.UI.createLabel({
+        id: "lblEmail"
+    });
+    $.__views.__alloyId0.add($.__views.lblEmail);
+    $.__views.lblTelefonNo = Ti.UI.createLabel({
+        id: "lblTelefonNo"
+    });
+    $.__views.__alloyId0.add($.__views.lblTelefonNo);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    arguments[0] || {};
+    var args = arguments[0] || {};
+    $.lblFirstname.text = args.firstname || "";
+    $.lblLastname.text = args.lastname || "";
+    $.lblAddress.text = args.address || "";
+    $.lblEmail.text = args.emailAddress || "";
+    $.lblTelefonNo.text = args.telephonNumber || "";
     _.extend($, exports);
 }
 

@@ -1,7 +1,12 @@
 <Alloy>
 	<Window id="additionalinformation">
-	<View class="container">
-		<Label id="thelabel" >I am the new window</Label>
-	</View>
+		<ScrollView class="container">
+			<Label id="lblFirstname" ></Label>
+			<Label id="lblLastname" ></Label>
+			<Label id="lblAddress" ></Label>
+			<Label id="lblEmail" ></Label>
+			<Label id="lblTelefonNo" ></Label>
+			
+		</ScrollView>
 	</Window>
 </Alloy>

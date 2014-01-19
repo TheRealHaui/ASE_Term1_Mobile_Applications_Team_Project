@@ -18,14 +18,16 @@ function Controller() {
             win.open();
         }
     }
-    function showTestLayout() {
+    function showTestLayout(persons) {
         var tbl_data = [];
         var searchbar;
-        for (var i = 0; 10 > i; i++) {
+        for (var i = 0; persons.length > i; i++) {
+            var person = persons.at(i);
+            console.log(person.get("firstName"));
             var row = Ti.UI.createTableViewRow();
             var label = Ti.UI.createLabel({
                 left: 10,
-                text: "Row Row Row Row Row Row" + (i + 1)
+                text: person.get("firstName") + " " + person.get("lastName")
             });
             var buttonCall = Ti.UI.createButton({
                 right: 160,
@@ -107,7 +109,7 @@ function Controller() {
         $.searchViewId.add(table);
     }
     function showPersonList(persons) {
-        null == persons ? showNoResultLayout() : showTestLayout();
+        null == persons ? showNoResultLayout() : showTestLayout(persons);
         return;
     }
     function getShareListAsynchronousAndShowIt(searchTerm) {
@@ -123,7 +125,10 @@ function Controller() {
             address: field[3].replace('"', "").replace('"', ""),
             telephoneNumber: field[3].replace('"', "").replace('"', "")
         });
-        return person;
+        var library = Alloy.createCollection("person");
+        library.add(person);
+        library.add(person);
+        return library;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
