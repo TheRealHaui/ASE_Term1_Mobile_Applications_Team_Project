@@ -63,10 +63,13 @@ function checkPw(username, password)
 		for(var i=0;i <resources.length;i++)
 		{
 			var data = resources[i].split(' ');
-			console.log ('Vergleich Username:' + data[0]);
-			console.log ('Vergleich password:' + data[1]);
+			var user = data[0].trim();
+			var pw = data[1].trim();
+			
+			console.log ('Vergleich Username:' + user);
+			console.log ('Vergleich password:' + pw);
 
-			  if (username == data[0] && password == data[1].trim())	
+			if (username == user && password == pw)	
 				return true;
 	   }
 
