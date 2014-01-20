@@ -1,9 +1,107 @@
 var initialSearchFieldTextValue = "Personen suchen";
-
+console.log("start");
 $.searchFieldId.value = initialSearchFieldTextValue;
 
+var win = Titanium.UI.createWindow({
+  title: 'Login',
+   backgroundColor: 'white'
+});
+
+
+var username = Titanium.UI.createTextField({
+    borderStyle : Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
+    hintText : 'Username',
+    keyboardToolbarColor : '#999',
+    keyboardToolbarHeight : 40,
+    top : 100,
+    width : 300,  height: Ti.UI.SIZE
+});
+var label1 = Ti.UI.createLabel({
+  color: '#900',
+  font: { fontSize:48 },
+  text: 'Login',
+  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+  top: 30,
+  width: Ti.UI.SIZE, height: Ti.UI.SIZE
+});
+var label2 = Ti.UI.createLabel({
+  color: '#900',
+  font: { fontSize:48 },
+  text: 'Password',
+  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+  top: 140,
+  width: Ti.UI.SIZE, height: Ti.UI.SIZE
+});
+var password = Titanium.UI.createTextField({
+    borderStyle : Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
+    hintText : 'Password',
+    color: 'black',
+    keyboardToolbarColor : '#999',
+    keyboardToolbarHeight : 40,
+    top : 210,
+    width : 300, height: Ti.UI.SIZE
+});
+
+var loginButton = Titanium.UI.createButton({
+   title: 'Login',
+   top: 270,
+   width: 100,
+   height: 50
+});
+
+function checkPw(username, password)
+{
+	console.log ('Username:' + username);
+	console.log ('password:' + password);
+	
+	var file = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, "password.txt");
+	
+	if (file.exists())
+	{
+		
+		var resources = file.read().text.split('\n');
+		for(var i=0;i <resources.length;i++)
+		{
+			var data = resources[i].split(' ');
+			console.log ('Vergleich Username:' + data[0]);
+			console.log ('Vergleich password:' + data[1]);
+
+			  if (username == data[0] && password == data[1].trim())	
+				return true;
+	   }
+
+	}
+	
+	return false;
+}
+
+loginButton.addEventListener('click',function(e)
+{
+   Titanium.API.info("You clicked the button");
+   console.log("Clicked button");
+   
+   if (username.value == "" || username.value === 'Username')
+   {  alert('Please enter a Username');
+   	  return;
+  } else if (password.value == "" || password.value === 'Password') {
+  	  alert('Please enter a Password');
+   	  return;
+  }
+  if (!checkPw(username.value, password.value))
+       alert('Username/Password is not valid');
+  else     
+   	   $.mainWindowId.open();
+});
+win.add(label1);
+win.add(username);
+win.add(label2);
+win.add(password);
+win.add(loginButton);
+win.open();
+//$.loginWindowId.open();
+console.log("nach open");
 //Display page
-$.mainWindowId.open();
+//$.mainWindowId.open();
 var offset = 100;
 var lastTime = new Date().getTime();
 var filter = 1.0;
