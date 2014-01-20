@@ -112,34 +112,38 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
-    $.lblFirstname.text = args.get("firstname") || "";
-    $.lblLastname.text = args.get("lastname") || "";
+    $.lblFirstname.text = args.get("firstName") || "";
+    $.lblLastname.text = args.get("lastName") || "";
     $.lblAddress.text = args.get("address") || "";
     $.lblEmail.text = args.get("emailAddress") || "";
     $.lblTelefonNo.text = args.get("telephonNumber") || "";
-    var MapModule = require("ti.map");
-    var personlatitude = 47.213243;
-    var personlongitude = 14.830806;
-    var personlocation = MapModule.createAnnotation({
-        latitude: personlatitude,
-        longitude: personlongitude,
-        pincolor: MapModule.ANNOTATION_RED,
-        title: args.get("lastname")
-    });
-    var mv = MapModule.createView({
-        mapType: MapModule.NORMAL_TYPE,
-        region: {
+    Titanium.Geolocation.forwardGeocoder(args.get("address"), function(evt) {
+        var MapModule = require("ti.map");
+        var personlatitude = 0;
+        var personlongitude = 0;
+        personlatitude = null == evt.latitude ? 47.213243 : evt.latitude;
+        personlongitude = null == evt.longitude ? 14.830806 : evt.longitude;
+        var personlocation = MapModule.createAnnotation({
             latitude: personlatitude,
             longitude: personlongitude,
-            latitudeDelta: .02,
-            longitudeDelta: .02
-        },
-        animate: true,
-        regionFit: true,
-        userLocation: true,
-        annotations: [ personlocation ]
+            pincolor: MapModule.ANNOTATION_RED,
+            title: args.get("lastName")
+        });
+        var mv = MapModule.createView({
+            mapType: MapModule.NORMAL_TYPE,
+            region: {
+                latitude: personlatitude,
+                longitude: personlongitude,
+                latitudeDelta: .02,
+                longitudeDelta: .02
+            },
+            animate: true,
+            regionFit: true,
+            userLocation: true,
+            annotations: [ personlocation ]
+        });
+        $.mapview.add(mv);
     });
-    $.mapview.add(mv);
     _.extend($, exports);
 }
 
