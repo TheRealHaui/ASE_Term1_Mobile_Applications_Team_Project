@@ -11,6 +11,7 @@ var win = Titanium.UI.createWindow({
 var username = Titanium.UI.createTextField({
     borderStyle : Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
     hintText : 'Username',
+     color: 'black',
     keyboardToolbarColor : '#999',
     keyboardToolbarHeight : 40,
     top : 100,
@@ -53,6 +54,8 @@ function checkPw(username, password)
 {
 	console.log ('Username:' + username);
 	console.log ('password:' + password);
+	var usern = username.trim();
+	var passw = password.trim();
 	
 	var file = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, "password.txt");
 	
@@ -66,10 +69,17 @@ function checkPw(username, password)
 			var user = data[0].trim();
 			var pw = data[1].trim();
 			
+			console.log("Eingabe User länge:" + usern.length);
+			console.log(user.length);
+			
+			console.log("Eingabe Password länge:" + passw.length);
+			console.log(pw.length);
+			
+			
 			console.log ('Vergleich Username:' + user);
 			console.log ('Vergleich password:' + pw);
 
-			if (username == user && password == pw)	
+			if (usern == user && passw == pw)	
 				return true;
 	   }
 
@@ -93,7 +103,11 @@ loginButton.addEventListener('click',function(e)
   if (!checkPw(username.value, password.value))
        alert('Username/Password is not valid');
   else     
+       {
    	   $.mainWindowId.open();
+   	   Ti.Media.vibrate([0,500]);
+   	   startAccelerator();
+	   }	
 });
 win.add(label1);
 win.add(username);
@@ -137,20 +151,23 @@ var accelerometerCallback = function(e) {
   
 };
 
-if (Ti.Platform.model === 'Simulator' || Ti.Platform.model.indexOf('sdk') !== -1 ){
-  alert('Accelerometer does not work on a virtual device');
-} else {
-  Ti.Accelerometer.addEventListener('update', accelerometerCallback);
-  if (Ti.Platform.name === 'android'){
-    Ti.Android.currentActivity.addEventListener('pause', function(e) {
-      Ti.API.info("removing accelerometer callback on pause");
-      Ti.Accelerometer.removeEventListener('update', accelerometerCallback);
-    });
-    Ti.Android.currentActivity.addEventListener('resume', function(e) {
-      Ti.API.info("adding accelerometer callback on resume");
-      Ti.Accelerometer.addEventListener('update', accelerometerCallback);
-    });
-  }
+function startAccelerator()
+{
+	if (Ti.Platform.model === 'Simulator' || Ti.Platform.model.indexOf('sdk') !== -1 ){
+	  alert('Accelerometer does not work on a virtual device');
+	} else {
+	  Ti.Accelerometer.addEventListener('update', accelerometerCallback);
+	  if (Ti.Platform.name === 'android'){
+	    Ti.Android.currentActivity.addEventListener('pause', function(e) {
+	      Ti.API.info("removing accelerometer callback on pause");
+	      Ti.Accelerometer.removeEventListener('update', accelerometerCallback);
+	    });
+	    Ti.Android.currentActivity.addEventListener('resume', function(e) {
+	      Ti.API.info("adding accelerometer callback on resume");
+	      Ti.Accelerometer.addEventListener('update', accelerometerCallback);
+	    });
+	  }
+	}
 }
 
 //Include webservice code that is in own javascript file
@@ -253,6 +270,7 @@ function showTestLayout(persons) {
 		});
 	}
 
+	
    for (var i=0; i < persons.length; i++ ) {
 
 		console.log("i:" + i);
