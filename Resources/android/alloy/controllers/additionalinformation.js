@@ -121,8 +121,17 @@ function Controller() {
         var MapModule = require("ti.map");
         var personlatitude = 0;
         var personlongitude = 0;
-        personlatitude = null == evt.latitude ? 47.213243 : evt.latitude;
-        personlongitude = null == evt.longitude ? 14.830806 : evt.longitude;
+        if (null == evt.latitude || null == evt.longitude) {
+            personlatitude = 47.213243;
+            personlongitude = 14.830806;
+            Ti.UI.createAlertDialog({
+                title: "Map Problem",
+                message: "Position auf der Karte nicht feststellbar!"
+            }).show();
+        } else {
+            personlatitude = evt.latitude;
+            personlongitude = evt.longitude;
+        }
         var personlocation = MapModule.createAnnotation({
             latitude: personlatitude,
             longitude: personlongitude,

@@ -2,17 +2,32 @@ function Controller() {
     function checkPw(username, password) {
         console.log("Username:" + username);
         console.log("password:" + password);
+        var usern = username.trim();
+        var passw = password.trim();
         var file = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, "password.txt");
         if (file.exists()) {
             var resources = file.read().text.split("\n");
             for (var i = 0; resources.length > i; i++) {
                 var data = resources[i].split(" ");
-                console.log("Vergleich Username:" + data[0]);
-                console.log("Vergleich password:" + data[1]);
-                if (username == data[0] && password == data[1].trim()) return true;
+                var user = data[0].trim();
+                var pw = data[1].trim();
+                if (usern == user && passw == pw) return true;
             }
         }
         return false;
+    }
+    function startAccelerator() {
+        if ("Simulator" === Ti.Platform.model || -1 !== Ti.Platform.model.indexOf("sdk")) alert("Accelerometer does not work on a virtual device"); else {
+            Ti.Accelerometer.addEventListener("update", accelerometerCallback);
+            Ti.Android.currentActivity.addEventListener("pause", function() {
+                Ti.API.info("removing accelerometer callback on pause");
+                Ti.Accelerometer.removeEventListener("update", accelerometerCallback);
+            });
+            Ti.Android.currentActivity.addEventListener("resume", function() {
+                Ti.API.info("adding accelerometer callback on resume");
+                Ti.Accelerometer.addEventListener("update", accelerometerCallback);
+            });
+        }
     }
     function doSearchButtonClick() {
         var searchFieldValue = $.searchFieldId.value;
@@ -237,6 +252,7 @@ function Controller() {
     var username = Titanium.UI.createTextField({
         borderStyle: Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
         hintText: "Username",
+        color: "black",
         keyboardToolbarColor: "#999",
         keyboardToolbarHeight: 40,
         top: 100,
@@ -292,7 +308,11 @@ function Controller() {
             alert("Please enter a Password");
             return;
         }
-        checkPw(username.value, password.value) ? $.mainWindowId.open() : alert("Username/Password is not valid");
+        if (checkPw(username.value, password.value)) {
+            $.mainWindowId.open();
+            Ti.Media.vibrate([ 0, 500 ]);
+            startAccelerator();
+        } else alert("Username/Password is not valid");
     });
     win.add(label1);
     win.add(username);
@@ -315,17 +335,6 @@ function Controller() {
             lastTime = now;
         }
     };
-    if ("Simulator" === Ti.Platform.model || -1 !== Ti.Platform.model.indexOf("sdk")) alert("Accelerometer does not work on a virtual device"); else {
-        Ti.Accelerometer.addEventListener("update", accelerometerCallback);
-        Ti.Android.currentActivity.addEventListener("pause", function() {
-            Ti.API.info("removing accelerometer callback on pause");
-            Ti.Accelerometer.removeEventListener("update", accelerometerCallback);
-        });
-        Ti.Android.currentActivity.addEventListener("resume", function() {
-            Ti.API.info("adding accelerometer callback on resume");
-            Ti.Accelerometer.addEventListener("update", accelerometerCallback);
-        });
-    }
     __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
     __defers["$.__views.searchFieldId!touchstart!doTouchStart"] && $.__views.searchFieldId.addEventListener("touchstart", doTouchStart);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);

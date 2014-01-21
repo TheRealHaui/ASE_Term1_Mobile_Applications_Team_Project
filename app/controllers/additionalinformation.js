@@ -17,18 +17,18 @@ Titanium.Geolocation.forwardGeocoder(args.get("address"),function(evt){
 	var personlatitude = 0.0;
 	var personlongitude = 0.0;
 	
-	if(evt.latitude == null){
-		personlatitude = 47.213243;	
+	if(evt.latitude == null || evt.longitude == null){
+		personlatitude = 47.213243;
+		personlongitude = 14.830806;
+		// alert(L('position_undefined'));
+		Ti.UI.createAlertDialog({
+			title:'Map Problem',
+			message:'Position auf der Karte nicht feststellbar!'
+		}).show();	
 	}
 	else{
-		personlatitude = evt.latitude;	
-	}
-	
-	if(evt.longitude == null){
-		personlongitude = 14.830806;	
-	}
-	else{
-		personlongitude = evt.longitude;
+		personlatitude = evt.latitude;
+		personlongitude = evt.longitude;		
 	}
 	
 	var personlocation = MapModule.createAnnotation({ 
