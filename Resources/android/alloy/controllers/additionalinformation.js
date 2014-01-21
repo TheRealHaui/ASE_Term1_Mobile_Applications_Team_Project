@@ -31,7 +31,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -47,7 +47,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -63,7 +63,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -79,7 +79,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -95,7 +95,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -125,8 +125,8 @@ function Controller() {
             personlatitude = 47.213243;
             personlongitude = 14.830806;
             Ti.UI.createAlertDialog({
-                title: "Map Problem",
-                message: "Position auf der Karte nicht feststellbar!"
+                title: L("nolocationcap"),
+                message: L("nolocation")
             }).show();
         } else {
             personlatitude = evt.latitude;

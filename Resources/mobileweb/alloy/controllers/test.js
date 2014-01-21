@@ -10,15 +10,15 @@ function Controller() {
         id: "test"
     });
     $.__views.test && $.addTopLevelView($.__views.test);
-    $.__views.__alloyId1 = Ti.UI.createView({
-        id: "__alloyId1"
+    $.__views.__alloyId0 = Ti.UI.createView({
+        id: "__alloyId0"
     });
-    $.__views.test.add($.__views.__alloyId1);
+    $.__views.test.add($.__views.__alloyId0);
     $.__views.thelabel = Ti.UI.createLabel({
         text: "I'm Window 2",
         id: "thelabel"
     });
-    $.__views.__alloyId1.add($.__views.thelabel);
+    $.__views.__alloyId0.add($.__views.thelabel);
     exports.destroy = function() {};
     _.extend($, $.__views);
     arguments[0] || {};

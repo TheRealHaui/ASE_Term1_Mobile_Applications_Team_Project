@@ -12,4 +12,6 @@
 	<string name="enterpassword">Please enter a Password</string>
 	<string name="notvalid">Username/Password not valid</string>
 	<string name="emptysearch">You must enter at least one character</string>
+	<string name="nolocationcap">Map Error</string>
+	<string name="nolocation">Localization on the map is not valid</string>
 </resources>

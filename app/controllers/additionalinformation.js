@@ -22,8 +22,8 @@ Titanium.Geolocation.forwardGeocoder(args.get("address"),function(evt){
 		personlongitude = 14.830806;
 		// alert(L('position_undefined'));
 		Ti.UI.createAlertDialog({
-			title:'Map Problem',
-			message:'Position auf der Karte nicht feststellbar!'
+			title:L('nolocationcap'),
+			message:L('nolocation')
 		}).show();	
 	}
 	else{
