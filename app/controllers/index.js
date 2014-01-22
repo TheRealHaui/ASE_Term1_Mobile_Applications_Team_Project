@@ -296,7 +296,11 @@ function showTestLayout(persons) {
         });
 
 		var buttonCall = Ti.UI.createButton({
+<<<<<<< HEAD
 			right : 70,
+=======
+			right : 100,
+>>>>>>> 34a16cfd3363ef5e72a667ceb29ab7f7db2d72e9
 			height : 20,
 			width : 20,
 			backgroundImage : '/imagesForAllPlatforms/telefonhoerer.png',
@@ -314,6 +318,15 @@ function showTestLayout(persons) {
 		//buttonCall.addEventListener("call",resultListButtonClicked);
 		//buttonCall.addEventListener("call", function(e){ alert(1111); } );
 
+<<<<<<< HEAD
+=======
+		var buttonNav = Ti.UI.createButton({
+			right : 70,
+			height : 20,
+			width : 20,
+			backgroundImage : '/imagesForAllPlatforms/map.png',
+		});
+>>>>>>> 34a16cfd3363ef5e72a667ceb29ab7f7db2d72e9
 
 		var buttonEMail = Ti.UI.createButton({
 			right : 40,

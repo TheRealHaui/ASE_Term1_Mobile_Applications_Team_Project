@@ -72,6 +72,15 @@ function Controller() {
                 backgroundImage: "/imagesForAllPlatforms/telefonhoerer.png",
                 touchEnabled: true
             });
+<<<<<<< HEAD
+=======
+            var buttonNav = Ti.UI.createButton({
+                right: 70,
+                height: 20,
+                width: 20,
+                backgroundImage: "/imagesForAllPlatforms/map.png"
+            });
+>>>>>>> 34a16cfd3363ef5e72a667ceb29ab7f7db2d72e9
             var buttonEMail = Ti.UI.createButton({
                 right: 40,
                 height: 20,
