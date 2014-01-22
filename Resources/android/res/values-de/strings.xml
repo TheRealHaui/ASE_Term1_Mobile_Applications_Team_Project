@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="search_message">Personen suchen</string>
+    <string name="password">Passwort</string>
+    <string name="login">Login</string>
+	<string name="startlogin">Einloggen</string>
+	<string name="username">Benutzername</string>
+    <string name="result">Ergebnisse</string>
+    <string name="noresult">Es wurde leider keine Ergebnisse gefunden</string>
+    <string name="search">Suchen</string>
+	<string name="enterusername">Bitte einen Benutzernamen eingeben!</string>
+	<string name="enterpassword">Bitte Passwort eingeben!</string>
+	<string name="notvalid">Benutzername/Passwort nicht gültig!</string>
+	<string name="emptysearch">Sie müssen mindestens einen Buchstaben zur Suche eingeben</string>
+	<string name="nolocationcap">Karten Fehler</string>
+	<string name="nolocation">Lokalisierung auf der Karte ungültig</string>
+</resources>

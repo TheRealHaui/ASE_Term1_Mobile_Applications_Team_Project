@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="search_message">Search Persons</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+	<string name="startlogin">Login</string>
+	<string name="username">Username</string>
+    <string name="result">Results</string>
+    <string name="noresult">No Results found</string>
+    <string name="search">Search</string>
+	<string name="enterusername">Please enter a Username</string>
+	<string name="enterpassword">Please enter a Password</string>
+	<string name="notvalid">Username/Password not valid</string>
+	<string name="emptysearch">You must enter at least one character</string>
+	<string name="nolocationcap">Map Error</string>
+	<string name="nolocation">Localization on the map is not valid</string>
+</resources>
