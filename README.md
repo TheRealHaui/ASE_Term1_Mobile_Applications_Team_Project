@@ -2,7 +2,7 @@
 
 Mit der vorliegenden Applikation kann Volltext nach Personen auf dem Mobiltelefon gesucht werden. 
 
-Eine grundsätzliche Übersicht zur Funktionalität kann hier [a relative link](other_file.md), sowie hier [a relative link](other_file.md) gefunden werden. 
+Eine grundsätzliche Übersicht zur Funktionalität kann hier [a relative link](Files for presentation/mobile_Search_for_employees_poster.pdf), sowie hier [a relative link](other_file.md) gefunden werden. 
 
 
 Die Android Version funktioniert einwandfrei und fragt das JSON Webserive welches entwickelt wurde ab.
