@@ -1,11 +1,35 @@
 
 
-Mit der vorliegenden Applikation kann Volltext nach Personen auf dem Mobiltelefon gesucht werden. 
+Mit der vorliegenden Applikation kann Volltext nach Personen auf dem Mobiltelefon gesucht werden.
+Sie wurde unter Verwendung des Appcelerator Titanium Frameworks entwickelt. 
 
-Eine grundsätzliche Übersicht zur Funktionalität kann [hier (Plakat)](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Files%20for%20presentation/mobile_Search_for_employees_poster.pdf?raw=true), sowie [hier (Präsentation)](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Files%20for%20presentation/mobile_Search_for_employees_presentation.pdf?raw=true) gefunden werden. 
+Eine grundsätzliche Übersicht zur Funktionalität kann 
+[hier (Plakat)](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Files%20for%20presentation/mobile_Search_for_employees_poster.pdf?raw=true), 
+sowie [hier (Präsentation)](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Files%20for%20presentation/mobile_Search_for_employees_presentation.pdf?raw=true) 
+gefunden werden. 
 
 
-Die Android Version funktioniert einwandfrei und fragt das JSON Webserive welches entwickelt wurde ab.
+Weiters werden 
+ - Daten ausschließlich asynchron nachgeladen 
+ - die aktuelle Position der BenutzerIn in einem interaktiven Lageplan angezeigt sowie per GPS bestimmt
+ - die Beschleunigungssensoren ausgelesen sodass die BenutzerIn mittels Schütteln aktuelle Sucheingaben löschen kann
+ - ausgehende Anrufe direkt aus der Applikation heraus unterstützt
+ - die Erstellung von eMails direkt aus der Applikation heraus unterstützt
+ - das Versenden von SMS direkt aus der Applikation heraus unterstützt
+ - nach erfolgreichem Login der BenutzerIn ein Vibrationsalarm ausgelöst
+ - Deutsch und Englisch als Benutzersprachen unterstützt
+
+Dies alles kann von BenutzerInnen nach erfolgreichem Login durchgeführt werden.
+
+
+Die von der Appliation verwendeten Daten werden von einer Java EE / Spring Applikation vorgehalten.
+Die HTML Benutzerschnittstelle dieser Serveranwendung erlaubt es Personendaten zu erfassen, zu aktualisieren sowie zu löschen. 
+Die zugehörende Dokumentation kann [hier](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Exercise_Team_Project_searchServer/blob/master/README.md) eingesehen werden.
+
+
+
+
+Die Android Version der Handyanwendung funktioniert einwandfrei und fragt das JSON Webserive welches entwickelt wurde ab.
 Dieses kann auch hier abgerufen werden: http://199.231.93.151:8080/perssearch/searchPerson/[Suchbegriff]
 
 
