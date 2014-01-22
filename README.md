@@ -2,7 +2,7 @@
 
 Mit der vorliegenden Applikation kann Volltext nach Personen auf dem Mobiltelefon gesucht werden. 
 
-Eine grundsätzliche Übersicht zur Funktionalität kann hier [a relative link](Files for presentation/mobile_Search_for_employees_poster.pdf), sowie hier [a relative link](other_file.md) gefunden werden. 
+Eine grundsätzliche Übersicht zur Funktionalität kann [hier (Plakat)](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Files%20for%20presentation/mobile_Search_for_employees_poster.pdf?raw=true), sowie [hier (Präsentation)](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Files%20for%20presentation/mobile_Search_for_employees_presentation.pdf?raw=true) gefunden werden. 
 
 
 Die Android Version funktioniert einwandfrei und fragt das JSON Webserive welches entwickelt wurde ab.
