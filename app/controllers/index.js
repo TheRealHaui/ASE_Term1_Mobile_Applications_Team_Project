@@ -301,7 +301,9 @@ function showTestLayout(persons) {
 			width : 20,
 			backgroundImage : '/imagesForAllPlatforms/telefonhoerer.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			touchEnabled : true
+			//title : 'Call',
+			touchEnabled : true,
+
 			//Transmit custom data for event processing
 			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
 			//customData : "my custom data"
@@ -317,8 +319,6 @@ function showTestLayout(persons) {
 			height : 20,
 			width : 20,
 			backgroundImage : '/imagesForAllPlatforms/map.png',
-			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			
 		});
 
 		var buttonEMail = Ti.UI.createButton({
@@ -326,8 +326,6 @@ function showTestLayout(persons) {
 			height : 20,
 			width : 20,
 			backgroundImage : '/imagesForAllPlatforms/email.png',
-			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			
 		});
 
 		var buttonAdditional = Ti.UI.createButton({
@@ -336,7 +334,8 @@ function showTestLayout(persons) {
 			width : 20,
 			backgroundImage : '/imagesForAllPlatforms/i.png'
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			
+			//backgroundSelectedImage:'/images/custom-slider-left.png',
+			//title : 'Weiteres'
 		});
 
 		row.add(label);
@@ -427,13 +426,14 @@ function showNoResultLayout() {
 
 	//Titanium searbar wird nur auf Android, iPhone und iPad unterstützt.
 	//http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.SearchBar
+	/*
 	if (!OS_MOBILEWEB) {
 		searchbar = Ti.UI.createSearchBar({
 			barColor : '#385292',
 			showCancel : false
 		});
 	}
-
+	*/
 
 		var row = Ti.UI.createTableViewRow();
 
@@ -488,7 +488,6 @@ function showPersonList(persons) {
 
 	//http://stackoverflow.com/questions/7465352/titanium-studio-adding-rows-to-section
 
-	//alert(stock.get("stockName"));
 
 	// CREATE RESULTS TABLEVIEW
 	var tableViewData = Ti.UI.createTableView({
@@ -530,7 +529,6 @@ function showPersonList(persons) {
 
 
 }
-
 
 function getShareListAsynchronousAndShowIt(searchTerm) {
 
@@ -614,9 +612,6 @@ function getPersonModelFromWebserviceContent(webserviceContent) {
    }
 
     console.log(library.length);
-    //    alert(library.length);
-    //alert(library.length());
-    //alert (stock.get("sign"));
 
     return library;   
 

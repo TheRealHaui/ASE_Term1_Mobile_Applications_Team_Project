@@ -31,7 +31,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -47,7 +47,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -63,7 +63,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -79,7 +79,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -95,7 +95,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#0f0",
+        color: "#000",
         font: {
             fontFamily: "Helvetica",
             fontSize: "16dp",
@@ -121,8 +121,17 @@ function Controller() {
         var MapModule = require("ti.map");
         var personlatitude = 0;
         var personlongitude = 0;
-        personlatitude = null == evt.latitude ? 47.213243 : evt.latitude;
-        personlongitude = null == evt.longitude ? 14.830806 : evt.longitude;
+        if (null == evt.latitude || null == evt.longitude) {
+            personlatitude = 47.213243;
+            personlongitude = 14.830806;
+            Ti.UI.createAlertDialog({
+                title: L("nolocationcap"),
+                message: L("nolocation")
+            }).show();
+        } else {
+            personlatitude = evt.latitude;
+            personlongitude = evt.longitude;
+        }
         var personlocation = MapModule.createAnnotation({
             latitude: personlatitude,
             longitude: personlongitude,

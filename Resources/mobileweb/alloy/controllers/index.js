@@ -1,4 +1,24 @@
 function Controller() {
+    function checkPw(username, password) {
+        console.log("Username:" + username);
+        console.log("password:" + password);
+        var usern = username.trim();
+        var passw = password.trim();
+        var file = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, "password.txt");
+        if (file.exists()) {
+            var resources = file.read().text.split("\n");
+            for (var i = 0; resources.length > i; i++) {
+                var data = resources[i].split(" ");
+                var user = data[0].trim();
+                var pw = data[1].trim();
+                if (usern == user && passw == pw) return true;
+            }
+        }
+        return false;
+    }
+    function startAccelerator() {
+        "Simulator" === Ti.Platform.model || -1 !== Ti.Platform.model.indexOf("sdk") ? alert("Accelerometer does not work on a virtual device") : Ti.Accelerometer.addEventListener("update", accelerometerCallback);
+    }
     function doSearchButtonClick() {
         var searchFieldValue = $.searchFieldId.value;
         if ("" == searchFieldValue || searchFieldValue == initialSearchFieldTextValue) {
@@ -48,8 +68,7 @@ function Controller() {
                 right: 60,
                 height: 30,
                 width: 40,
-                backgroundImage: "/imagesForAllPlatforms/appicon.png",
-                title: "eMail"
+                backgroundImage: "/imagesForAllPlatforms/email.png"
             });
             var buttonAdditional = Ti.UI.createButton({
                 right: 10,
@@ -64,7 +83,16 @@ function Controller() {
                 Titanium.Platform.openURL("tel:" + person.get("telephonNumber"));
             });
             buttonAdditional.addEventListener("click", function() {
+                var win = Alloy.createController("additionalinformation", person).getView();
+                win.open();
                 console.log("buttonclick Additional");
+            });
+            buttonEMail.addEventListener("click", function() {
+                var emailDialog = Ti.UI.createEmailDialog();
+                emailDialog.subject = "Hello from Titanium";
+                emailDialog.toRecipients = [ person.get("emailAddress") ];
+                emailDialog.messageBody = "Appcelerator Titanium Sucks!";
+                emailDialog.open();
             });
             row.add(buttonCall);
             row.add(buttonNav);
@@ -119,20 +147,24 @@ function Controller() {
         return;
     }
     function getShareListAsynchronousAndShowIt(searchTerm) {
-        showPersonList(getPersonModelFromWebserviceContent('"Michael","Mustermann","mm@mail.com", "8010 Graz Hauptstrasse", "066412345678"'));
+        var content = '[{"address":"asdf","emailAddress":"asdf","firstname":"asdf","id":1,"lastname":"asdf","telephonNumber":"asdf","version":0},{"address":"Allestrasse 12, 8010 Graz, Austria","emailAddress":"h.s@bekiffter.org","firstname":"Hans","id":2,"lastname":"Söllner","telephonNumber":"113 21423","version":0},{"address":"Grazer Straße 12, 8010 Graz, Austria","emailAddress":"m.kronberger@hotmail.com","firstname":"Michael","id":3,"lastname":"Kronberger","telephonNumber":"234 234 234","version":0},{"address":"Nirgendwo in Austria","emailAddress":"blabla@nirgendwo.at","firstname":"Bernhard","id":4,"lastname":"Eibegger","telephonNumber":"0664 1234567","version":0},{"address":"a","emailAddress":"a","firstname":"a","id":5,"lastname":"a","telephonNumber":"1","version":0}]';
+        showPersonList(getPersonModelFromWebserviceContent(content));
         return;
     }
     function getPersonModelFromWebserviceContent(webserviceContent) {
-        var field = webserviceContent.split(",");
-        var person = Alloy.createModel("person", {
-            firstName: field[0].replace('"', "").replace('"', ""),
-            lastName: field[1].replace('"', "").replace('"', ""),
-            emailAddress: field[2].replace('"', "").replace('"', ""),
-            address: field[3].replace('"', "").replace('"', ""),
-            telephonNumber: field[4].replace('"', "").replace('"', "")
-        });
+        webserviceContent.split(",");
+        var json = JSON.parse(webserviceContent);
         var library = Alloy.createCollection("person");
-        library.add(person);
+        for (i = 0; json.length > i; i++) {
+            var person = Alloy.createModel("person", {
+                firstName: json[i].firstname,
+                lastName: json[i].lastname,
+                emailAddress: json[i].emailAddress,
+                address: json[i].address,
+                telephonNumber: json[i].telephonNumber
+            });
+            library.add(person);
+        }
         console.log(library.length);
         return library;
     }
@@ -183,8 +215,98 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var initialSearchFieldTextValue = "Personen suchen";
+    console.log("start");
     $.searchFieldId.value = initialSearchFieldTextValue;
-    $.mainWindowId.open();
+    var win = Titanium.UI.createWindow({
+        title: "Login",
+        backgroundColor: "white"
+    });
+    var username = Titanium.UI.createTextField({
+        borderStyle: Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
+        hintText: "Username",
+        color: "black",
+        keyboardToolbarColor: "#999",
+        keyboardToolbarHeight: 40,
+        top: 100,
+        width: 300,
+        height: Ti.UI.SIZE
+    });
+    var label1 = Ti.UI.createLabel({
+        color: "#900",
+        font: {
+            fontSize: 48
+        },
+        text: "Login",
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        top: 30,
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE
+    });
+    var label2 = Ti.UI.createLabel({
+        color: "#900",
+        font: {
+            fontSize: 48
+        },
+        text: "Password",
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        top: 140,
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE
+    });
+    var password = Titanium.UI.createTextField({
+        borderStyle: Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
+        hintText: "Password",
+        color: "black",
+        keyboardToolbarColor: "#999",
+        keyboardToolbarHeight: 40,
+        top: 210,
+        width: 300,
+        height: Ti.UI.SIZE
+    });
+    var loginButton = Titanium.UI.createButton({
+        title: "Login",
+        top: 270,
+        width: 100,
+        height: 50
+    });
+    loginButton.addEventListener("click", function() {
+        Titanium.API.info("You clicked the button");
+        console.log("Clicked button");
+        if ("" == username.value || "Username" === username.value) {
+            alert("Please enter a Username");
+            return;
+        }
+        if ("" == password.value || "Password" === password.value) {
+            alert("Please enter a Password");
+            return;
+        }
+        if (checkPw(username.value, password.value)) {
+            $.mainWindowId.open();
+            Ti.Media.vibrate([ 0, 500 ]);
+            startAccelerator();
+        } else alert("Username/Password is not valid");
+    });
+    win.add(label1);
+    win.add(username);
+    win.add(label2);
+    win.add(password);
+    win.add(loginButton);
+    win.open();
+    console.log("nach open");
+    var offset = 100;
+    var lastTime = new Date().getTime();
+    var filter = 1;
+    var last_x = 0;
+    var accelerometerCallback = function(e) {
+        var now = new Date().getTime();
+        if (now > lastTime + offset) {
+            if (last_x > e.x + 5) {
+                last_x = e.x * filter + last_x * (1 - filter);
+                $.searchFieldId.value = initialSearchFieldTextValue;
+            } else last_x = e.x * filter + last_x * (1 - filter);
+            lastTime = now;
+        }
+    };
     __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
     __defers["$.__views.searchFieldId!touchstart!doTouchStart"] && $.__views.searchFieldId.addEventListener("touchstart", doTouchStart);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);

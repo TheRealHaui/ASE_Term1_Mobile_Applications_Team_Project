@@ -1,4 +1,34 @@
 function Controller() {
+    function checkPw(username, password) {
+        console.log("Username:" + username);
+        console.log("password:" + password);
+        var usern = username.trim();
+        var passw = password.trim();
+        var file = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, "password.txt");
+        if (file.exists()) {
+            var resources = file.read().text.split("\n");
+            for (var i = 0; resources.length > i; i++) {
+                var data = resources[i].split(" ");
+                var user = data[0].trim();
+                var pw = data[1].trim();
+                if (usern == user && passw == pw) return true;
+            }
+        }
+        return false;
+    }
+    function startAccelerator() {
+        if ("Simulator" === Ti.Platform.model || -1 !== Ti.Platform.model.indexOf("sdk")) alert("Accelerometer does not work on a virtual device"); else {
+            Ti.Accelerometer.addEventListener("update", accelerometerCallback);
+            Ti.Android.currentActivity.addEventListener("pause", function() {
+                Ti.API.info("removing accelerometer callback on pause");
+                Ti.Accelerometer.removeEventListener("update", accelerometerCallback);
+            });
+            Ti.Android.currentActivity.addEventListener("resume", function() {
+                Ti.API.info("adding accelerometer callback on resume");
+                Ti.Accelerometer.addEventListener("update", accelerometerCallback);
+            });
+        }
+    }
     function doSearchButtonClick() {
         var searchFieldValue = $.searchFieldId.value;
         if ("" == searchFieldValue || searchFieldValue == initialSearchFieldTextValue) {
@@ -39,7 +69,6 @@ function Controller() {
                 height: 30,
                 width: 40,
                 backgroundImage: "/imagesForAllPlatforms/telefonhoerer.png",
-                title: "Call",
                 touchEnabled: true
             });
             var buttonNav = Ti.UI.createButton({
@@ -58,8 +87,7 @@ function Controller() {
                 right: 10,
                 height: 30,
                 width: 40,
-                backgroundImage: "/imagesForAllPlatforms/appicon.png",
-                title: "Weiteres"
+                backgroundImage: "/imagesForAllPlatforms/information.png"
             });
             row.add(label);
             buttonCall.addEventListener("click", function() {
@@ -106,10 +134,6 @@ function Controller() {
     function showNoResultLayout() {
         var tbl_data = [];
         var searchbar;
-        searchbar = Ti.UI.createSearchBar({
-            barColor: "#385292",
-            showCancel: false
-        });
         var row = Ti.UI.createTableViewRow();
         var label = Ti.UI.createLabel({
             left: 10,
@@ -213,8 +237,84 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var initialSearchFieldTextValue = "Personen suchen";
+    console.log("start");
     $.searchFieldId.value = initialSearchFieldTextValue;
-    $.mainWindowId.open();
+    var win = Titanium.UI.createWindow({
+        title: "Login",
+        backgroundColor: "white"
+    });
+    var username = Titanium.UI.createTextField({
+        borderStyle: Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
+        hintText: "Username",
+        color: "black",
+        keyboardToolbarColor: "#999",
+        keyboardToolbarHeight: 40,
+        top: 100,
+        width: 300,
+        height: Ti.UI.SIZE
+    });
+    var label1 = Ti.UI.createLabel({
+        color: "#900",
+        font: {
+            fontSize: 48
+        },
+        text: "Login",
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        top: 30,
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE
+    });
+    var label2 = Ti.UI.createLabel({
+        color: "#900",
+        font: {
+            fontSize: 48
+        },
+        text: "Password",
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        top: 140,
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE
+    });
+    var password = Titanium.UI.createTextField({
+        borderStyle: Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
+        hintText: "Password",
+        color: "black",
+        keyboardToolbarColor: "#999",
+        keyboardToolbarHeight: 40,
+        top: 210,
+        width: 300,
+        height: Ti.UI.SIZE
+    });
+    var loginButton = Titanium.UI.createButton({
+        title: "Login",
+        top: 270,
+        width: 100,
+        height: 50
+    });
+    loginButton.addEventListener("click", function() {
+        Titanium.API.info("You clicked the button");
+        console.log("Clicked button");
+        if ("" == username.value || "Username" === username.value) {
+            alert("Please enter a Username");
+            return;
+        }
+        if ("" == password.value || "Password" === password.value) {
+            alert("Please enter a Password");
+            return;
+        }
+        if (checkPw(username.value, password.value)) {
+            $.mainWindowId.open();
+            Ti.Media.vibrate([ 0, 500 ]);
+            startAccelerator();
+        } else alert("Username/Password is not valid");
+    });
+    win.add(label1);
+    win.add(username);
+    win.add(label2);
+    win.add(password);
+    win.add(loginButton);
+    win.open();
+    console.log("nach open");
     var offset = 100;
     var lastTime = new Date().getTime();
     var filter = 1;
@@ -229,17 +329,6 @@ function Controller() {
             lastTime = now;
         }
     };
-    if ("Simulator" === Ti.Platform.model || -1 !== Ti.Platform.model.indexOf("sdk")) alert("Accelerometer does not work on a virtual device"); else {
-        Ti.Accelerometer.addEventListener("update", accelerometerCallback);
-        Ti.Android.currentActivity.addEventListener("pause", function() {
-            Ti.API.info("removing accelerometer callback on pause");
-            Ti.Accelerometer.removeEventListener("update", accelerometerCallback);
-        });
-        Ti.Android.currentActivity.addEventListener("resume", function() {
-            Ti.API.info("adding accelerometer callback on resume");
-            Ti.Accelerometer.addEventListener("update", accelerometerCallback);
-        });
-    }
     __defers["$.__views.searchFieldId!return!doSearchButtonClick"] && $.__views.searchFieldId.addEventListener("return", doSearchButtonClick);
     __defers["$.__views.searchFieldId!touchstart!doTouchStart"] && $.__views.searchFieldId.addEventListener("touchstart", doTouchStart);
     __defers["$.__views.button!click!doSearchButtonClick"] && $.__views.button.addEventListener("click", doSearchButtonClick);

@@ -5,9 +5,9 @@
     <version>1.0</version>
     <publisher>Haui</publisher>
     <url>http://</url>
-    <description>Personen finden</description>
+    <description>Personen suchen</description>
     <copyright>Copyrightholder</copyright>
-    <icon>appicon.png</icon>
+    <icon>new_appicon.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
@@ -39,7 +39,7 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-    	<manifest>
+        <manifest>
             <!-- Allows the API to download data from Google Map servers -->
             <uses-permission android:name="android.permission.INTERNET"/>
             <!-- Allows the API to cache data -->
@@ -54,11 +54,14 @@
             <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
             <!-- Replace com.domain.appid with your application ID -->
             <uses-permission android:name="com.haui.groupExercise.permission.MAPS_RECEIVE"/>
-            <permission android:name="com.haui.groupExercise.permission.MAPS_RECEIVE"
-                android:protectionLevel="signature"/>
+            <uses-permission android:name="android.permission.SHAKE"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <permission
+                android:name="com.haui.groupExercise.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
             <application>
-               <!-- Replace "PASTE YOUR GOOGLE MAPS API KEY HERE" with the Google API key you obtained -->
-                <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAj-oGwGooqOh6WMrO-OVI5UC6t5wVNBi4"/>
+                <!-- Replace "PASTE YOUR GOOGLE MAPS API KEY HERE" with the Google API key you obtained -->
+                <meta-data
+                    android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAj-oGwGooqOh6WMrO-OVI5UC6t5wVNBi4"/>
             </application>
         </manifest>
     </android>
@@ -71,7 +74,7 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-    	<module platform="android">ti.map</module>
+        <module platform="android">ti.map</module>
     </modules>
     <deployment-targets>
         <target device="iphone">false</target>
