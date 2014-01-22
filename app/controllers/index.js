@@ -1,16 +1,25 @@
-var initialSearchFieldTextValue = "Personen suchen";
+var initialSearchFieldTextValue = Ti.Locale.getString('search_message');
 console.log("start");
 $.searchFieldId.value = initialSearchFieldTextValue;
 
 var win = Titanium.UI.createWindow({
-  title: 'Login',
+   title: L('login'),
    backgroundColor: 'white'
+});
+
+var scrollView = Ti.UI.createScrollView({
+	contentWidth: 'auto',
+	contentHeight: 'auto',
+  	showVerticalScrollIndicator: true,
+    showHorizontalScrollIndicator: false,
+    height: 'auto',
+    width: 'auto'
 });
 
 
 var username = Titanium.UI.createTextField({
     borderStyle : Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
-    hintText : 'Username',
+    hintText : L('username'),
      color: 'black',
     keyboardToolbarColor : '#999',
     keyboardToolbarHeight : 40,
@@ -20,22 +29,23 @@ var username = Titanium.UI.createTextField({
 var label1 = Ti.UI.createLabel({
   color: '#900',
   font: { fontSize:48 },
-  text: 'Login',
+  text:  L('login'),
   textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
   top: 30,
-  width: Ti.UI.SIZE, height: Ti.UI.SIZE
+  width: 300, height: Ti.UI.SIZE
 });
 var label2 = Ti.UI.createLabel({
   color: '#900',
   font: { fontSize:48 },
-  text: 'Password',
+  text: L('password'),
   textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
   top: 140,
-  width: Ti.UI.SIZE, height: Ti.UI.SIZE
+  width: 300, height: Ti.UI.SIZE
 });
 var password = Titanium.UI.createTextField({
     borderStyle : Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
-    hintText : 'Password',
+    hintText : L('password'),
+    passwordMask:true,
     color: 'black',
     keyboardToolbarColor : '#999',
     keyboardToolbarHeight : 40,
@@ -44,7 +54,7 @@ var password = Titanium.UI.createTextField({
 });
 
 var loginButton = Titanium.UI.createButton({
-   title: 'Login',
+   title: L('startlogin'),
    top: 270,
    width: 100,
    height: 50
@@ -91,14 +101,14 @@ loginButton.addEventListener('click',function(e)
    console.log("Clicked button");
    
    if (username.value == "" || username.value === 'Username')
-   {  alert('Please enter a Username');
+   {  alert(L('enterusername'));
    	  return;
   } else if (password.value == "" || password.value === 'Password') {
-  	  alert('Please enter a Password');
+  	  alert(L('enterpassword'));
    	  return;
   }
   if (!checkPw(username.value, password.value))
-       alert('Username/Password is not valid');
+       alert(L('notvalid'));
   else     
        {
    	   $.mainWindowId.open();
@@ -106,11 +116,15 @@ loginButton.addEventListener('click',function(e)
    	   startAccelerator();
 	   }	
 });
+
+
 win.add(label1);
 win.add(username);
 win.add(label2);
 win.add(password);
 win.add(loginButton);
+//scrollView.add(view);
+//win.add(scrollView);
 win.open();
 //$.loginWindowId.open();
 console.log("nach open");
@@ -187,7 +201,7 @@ function doSearchButtonClick(e) {
 	var searchFieldValue = $.searchFieldId.value;
 
 	if (searchFieldValue == "" || searchFieldValue == initialSearchFieldTextValue) {
-		alert("Sie müssen mindestens einen Buchstaben zur Suche eingeben");
+		alert(L('emptysearch'));
 		$.searchFieldId.focus();
 		return;
 	}
@@ -263,7 +277,8 @@ function showTestLayout(persons) {
 	if (!OS_MOBILEWEB) {
 		searchbar = Ti.UI.createSearchBar({
 			barColor : '#385292',
-			showCancel : false
+			showCancel : false,
+			color: 'black'
 		});
 	}
 
@@ -280,30 +295,15 @@ function showTestLayout(persons) {
             text : person.get("firstName") + " " + person.get("lastName") 
         });
 
-/*	for (var i = 0; i < 10; i++) {
-
-		var row = Ti.UI.createTableViewRow();
-
-		var label = Ti.UI.createLabel({
-			left : 10,
-			text : 'Row Row Row Row Row Row' + (i + 1)
-		});*/
-
-		/*
-		 //Where to put images in your project: http://stackoverflow.com/questions/15888595/where-is-the-alloy-resources-folder
-		 var image = Ti.UI.createImageView({
-		 image : '/imagesForAllPlatforms/appicon.png'
-		 });
-		 */
-
 		var buttonCall = Ti.UI.createButton({
-			right : 160,
-			height : 30,
-			width : 40,
+			right : 70,
+			height : 20,
+			width : 20,
 			backgroundImage : '/imagesForAllPlatforms/telefonhoerer.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			title : 'Call',
+			//title : 'Call',
 			touchEnabled : true,
+
 			//Transmit custom data for event processing
 			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
 			//customData : "my custom data"
@@ -314,31 +314,22 @@ function showTestLayout(persons) {
 		//buttonCall.addEventListener("call",resultListButtonClicked);
 		//buttonCall.addEventListener("call", function(e){ alert(1111); } );
 
-		var buttonNav = Ti.UI.createButton({
-			right : 110,
-			height : 30,
-			width : 40,
-			backgroundImage : '/imagesForAllPlatforms/map.png',
-			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			
-		});
 
 		var buttonEMail = Ti.UI.createButton({
-			right : 60,
-			height : 30,
-			width : 40,
+			right : 40,
+			height : 20,
+			width : 20,
 			backgroundImage : '/imagesForAllPlatforms/email.png',
-			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			
 		});
 
 		var buttonAdditional = Ti.UI.createButton({
 			right : 10,
-			height : 30,
-			width : 40,
-			backgroundImage : '/imagesForAllPlatforms/appicon.png',
+			height : 20,
+			width : 20,
+			backgroundImage : '/imagesForAllPlatforms/i.png'
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			title : 'Weiteres'
+			//backgroundSelectedImage:'/images/custom-slider-left.png',
+			//title : 'Weiteres'
 		});
 
 		row.add(label);
@@ -367,7 +358,6 @@ function showTestLayout(persons) {
 		});
 			
 		row.add(buttonCall);
-		row.add(buttonNav);
 		row.add(buttonEMail);
 		row.add(buttonAdditional);
 		
@@ -378,6 +368,7 @@ function showTestLayout(persons) {
 	//Eventuell später noch auf ScrollView oder ScrollableView umstellen.
 	//http://docs.appcelerator.com/titanium/2.1/#!/guide/Scrolling_Views
 	//Funktioniert offensichtlich in Web nicht ...
+	var headertitle = L('result');
 	var table = Titanium.UI.createTableView({
 		id : "resultTableViewId",
 		data : tbl_data,
@@ -389,7 +380,7 @@ function showTestLayout(persons) {
 		borderColor : "black",
 		borderWidth : 0,
 		borderRadius : 0,
-		headerTitle : 'Ergebnisse',
+		headerTitle : headertitle
 		//footerTitle:"Wow. That was cool!" + " todo",
 	});
 
@@ -428,35 +419,26 @@ function showNoResultLayout() {
 
 	//Titanium searbar wird nur auf Android, iPhone und iPad unterstützt.
 	//http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.SearchBar
+	/*
 	if (!OS_MOBILEWEB) {
 		searchbar = Ti.UI.createSearchBar({
 			barColor : '#385292',
 			showCancel : false
 		});
 	}
-
+	*/
 
 		var row = Ti.UI.createTableViewRow();
 
 		var label = Ti.UI.createLabel({
 			left : 10,
-			text : 'Es wurde leider keine Ergebnisse gefunden'
+			titleid: 'noresult'
 		});
 
 
 
-		/*
-		 //Where to put images in your project: http://stackoverflow.com/questions/15888595/where-is-the-alloy-resources-folder
-		 var image = Ti.UI.createImageView({
-		 image : '/imagesForAllPlatforms/appicon.png'
-		 });
-		 */
-
-		
-
+	
 		row.add(label);
-
-		//row.add(image);
 
 		tbl_data.push(row);
 	
@@ -499,7 +481,6 @@ function showPersonList(persons) {
 
 	//http://stackoverflow.com/questions/7465352/titanium-studio-adding-rows-to-section
 
-	//alert(stock.get("stockName"));
 
 	// CREATE RESULTS TABLEVIEW
 	var tableViewData = Ti.UI.createTableView({
@@ -539,46 +520,8 @@ function showPersonList(persons) {
 	//Notation referenziert werden.
 	$.searchViewId.add(tableViewData);
 
-	/*
-
-	 http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.UI.TableViewRow
-
-	 var win = Ti.UI.createWindow();
-
-	 var tableData = [ {title: 'Apples'}, {title: 'Bananas'}, {title: 'Carrots'}, {title: 'Potatoes'} ];
-
-	 var table = Ti.UI.createTableView({
-	 data: tableData
-	 });
-	 win.add(table);
-	 win.open();
-
-	 */
 
 }
-
-/**
- var items = ['Television', 'Music System', 'Car', 'Bus', 'Train', 'Computer', 'Lap Top', 'I-Phone', 'Tablet', 'Electronics', 'Watch', 'Mouse'];
-
- function fillData() {
- var data = [];
- for (var i = 0; i < items.length; i++) {
- var row = Ti.UI.createTableViewRow({
- height : 50,
- title : items[i],
- color : 'gray',
- hasChild : true,
- font : {
- fontSize : 11
- },
- });
- data.push(row);
- }
- $.table.setData(data);
- }
- fillData();
- $.tabGroup.open();
- **/
 
 function getShareListAsynchronousAndShowIt(searchTerm) {
 
@@ -661,38 +604,7 @@ function getPersonModelFromWebserviceContent(webserviceContent) {
 	    library.add(person);
    }
 
-	//alert(field[0].replace("\"","").replace("\"","") );
-	//alert(field[1].replace("\"","").replace("\"","") );
-	//alert(field[2].replace("\"","").replace("\"","") );
-
-	//http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Collection_and_Model_Objects
-	/*var person = Alloy.createModel("person", {
-		firstName : field[0].replace("\"", "").replace("\"", ""),
-		lastName : field[1].replace("\"", "").replace("\"", ""),
-		emailAddress : field[2].replace("\"", "").replace("\"", ""),
-		address : field[3].replace("\"", "").replace("\"", ""),
-		telephonNumber : field[4].replace("\"", "").replace("\"", "")
-	});
-  
-	//alert (stock.get("sign"));
-
-	  var library = Alloy.createCollection("person");
-    
-  library.add(person);
-   /*   console.log(library.length);
-    	var person = Alloy.createModel("person", {
-		firstName : "Mike",
-		lastName : "Last",
-		emailAddress : "mail",
-		address : "graz",
-		telephonNumber : "12345"
-	});
-    library.add(person);
-*/
     console.log(library.length);
-    //    alert(library.length);
-    //alert(library.length());
-    //alert (stock.get("sign"));
 
     return library;   
 

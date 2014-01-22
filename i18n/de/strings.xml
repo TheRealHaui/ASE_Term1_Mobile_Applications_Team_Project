@@ -7,7 +7,7 @@
 	<string name="username">Benutzername</string>
     <string name="result">Ergebnisse</string>
     <string name="noresult">Es wurde leider keine Ergebnisse gefunden</string>
-    <string name="search">Suchen asd</string>
+    <string name="search">Suchen</string>
 	<string name="enterusername">Bitte einen Benutzernamen eingeben!</string>
 	<string name="enterpassword">Bitte Passwort eingeben!</string>
 	<string name="notvalid">Benutzername/Passwort nicht gültig!</string>
