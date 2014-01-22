@@ -32,7 +32,7 @@ function Controller() {
     function doSearchButtonClick() {
         var searchFieldValue = $.searchFieldId.value;
         if ("" == searchFieldValue || searchFieldValue == initialSearchFieldTextValue) {
-            alert("Sie müssen mindestens einen Buchstaben zur Suche eingeben");
+            alert(L("emptysearch"));
             $.searchFieldId.focus();
             return;
         }
@@ -53,7 +53,8 @@ function Controller() {
         var searchbar;
         searchbar = Ti.UI.createSearchBar({
             barColor: "#385292",
-            showCancel: false
+            showCancel: false,
+            color: "black"
         });
         for (var i = 0; persons.length > i; i++) {
             console.log("i:" + i);
@@ -65,29 +66,29 @@ function Controller() {
                 text: person.get("firstName") + " " + person.get("lastName")
             });
             var buttonCall = Ti.UI.createButton({
-                right: 160,
-                height: 30,
-                width: 40,
+                right: 100,
+                height: 20,
+                width: 20,
                 backgroundImage: "/imagesForAllPlatforms/telefonhoerer.png",
                 touchEnabled: true
             });
             var buttonNav = Ti.UI.createButton({
-                right: 110,
-                height: 30,
-                width: 40,
+                right: 70,
+                height: 20,
+                width: 20,
                 backgroundImage: "/imagesForAllPlatforms/map.png"
             });
             var buttonEMail = Ti.UI.createButton({
-                right: 60,
-                height: 30,
-                width: 40,
+                right: 40,
+                height: 20,
+                width: 20,
                 backgroundImage: "/imagesForAllPlatforms/email.png"
             });
             var buttonAdditional = Ti.UI.createButton({
                 right: 10,
-                height: 30,
-                width: 40,
-                backgroundImage: "/imagesForAllPlatforms/information.png"
+                height: 20,
+                width: 20,
+                backgroundImage: "/imagesForAllPlatforms/i.png"
             });
             row.add(label);
             buttonCall.addEventListener("click", function() {
@@ -112,6 +113,7 @@ function Controller() {
             row.add(buttonAdditional);
             tbl_data.push(row);
         }
+        var headertitle = L("result");
         var table = Titanium.UI.createTableView({
             id: "resultTableViewId",
             data: tbl_data,
@@ -121,7 +123,7 @@ function Controller() {
             borderColor: "black",
             borderWidth: 0,
             borderRadius: 0,
-            headerTitle: "Ergebnisse"
+            headerTitle: headertitle
         });
         table.addEventListener("click", resultListButtonClicked);
         var viewChildren = $.searchViewId.getChildren();
@@ -137,7 +139,7 @@ function Controller() {
         var row = Ti.UI.createTableViewRow();
         var label = Ti.UI.createLabel({
             left: 10,
-            text: "Es wurde leider keine Ergebnisse gefunden"
+            titleid: "noresult"
         });
         row.add(label);
         tbl_data.push(row);
@@ -236,16 +238,24 @@ function Controller() {
     doSearchButtonClick ? $.__views.button.addEventListener("click", doSearchButtonClick) : __defers["$.__views.button!click!doSearchButtonClick"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var initialSearchFieldTextValue = "Personen suchen";
+    var initialSearchFieldTextValue = Ti.Locale.getString("search_message");
     console.log("start");
     $.searchFieldId.value = initialSearchFieldTextValue;
     var win = Titanium.UI.createWindow({
-        title: "Login",
+        title: L("login"),
         backgroundColor: "white"
+    });
+    Ti.UI.createScrollView({
+        contentWidth: "auto",
+        contentHeight: "auto",
+        showVerticalScrollIndicator: true,
+        showHorizontalScrollIndicator: false,
+        height: "auto",
+        width: "auto"
     });
     var username = Titanium.UI.createTextField({
         borderStyle: Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
-        hintText: "Username",
+        hintText: L("username"),
         color: "black",
         keyboardToolbarColor: "#999",
         keyboardToolbarHeight: 40,
@@ -258,10 +268,10 @@ function Controller() {
         font: {
             fontSize: 48
         },
-        text: "Login",
+        text: L("login"),
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 30,
-        width: Ti.UI.SIZE,
+        width: 300,
         height: Ti.UI.SIZE
     });
     var label2 = Ti.UI.createLabel({
@@ -269,15 +279,16 @@ function Controller() {
         font: {
             fontSize: 48
         },
-        text: "Password",
+        text: L("password"),
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 140,
-        width: Ti.UI.SIZE,
+        width: 300,
         height: Ti.UI.SIZE
     });
     var password = Titanium.UI.createTextField({
         borderStyle: Titanium.UI.INPUT_BORDERSTYLE_BEZEL,
-        hintText: "Password",
+        hintText: L("password"),
+        passwordMask: true,
         color: "black",
         keyboardToolbarColor: "#999",
         keyboardToolbarHeight: 40,
@@ -286,7 +297,7 @@ function Controller() {
         height: Ti.UI.SIZE
     });
     var loginButton = Titanium.UI.createButton({
-        title: "Login",
+        title: L("startlogin"),
         top: 270,
         width: 100,
         height: 50
@@ -295,18 +306,18 @@ function Controller() {
         Titanium.API.info("You clicked the button");
         console.log("Clicked button");
         if ("" == username.value || "Username" === username.value) {
-            alert("Please enter a Username");
+            alert(L("enterusername"));
             return;
         }
         if ("" == password.value || "Password" === password.value) {
-            alert("Please enter a Password");
+            alert(L("enterpassword"));
             return;
         }
         if (checkPw(username.value, password.value)) {
             $.mainWindowId.open();
             Ti.Media.vibrate([ 0, 500 ]);
             startAccelerator();
-        } else alert("Username/Password is not valid");
+        } else alert(L("notvalid"));
     });
     win.add(label1);
     win.add(username);
