@@ -5,7 +5,7 @@
     <version>1.0</version>
     <publisher>Haui</publisher>
     <url>http://</url>
-    <description>Personen finden</description>
+    <description>Personen suchen</description>
     <copyright>Copyrightholder</copyright>
     <icon>new_appicon.png</icon>
     <fullscreen>false</fullscreen>
@@ -54,6 +54,8 @@
             <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
             <!-- Replace com.domain.appid with your application ID -->
             <uses-permission android:name="com.haui.groupExercise.permission.MAPS_RECEIVE"/>
+            <uses-permission android:name="android.permission.SHAKE"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
             <permission
                 android:name="com.haui.groupExercise.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
             <application>
