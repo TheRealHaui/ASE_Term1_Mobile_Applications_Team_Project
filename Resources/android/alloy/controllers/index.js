@@ -69,7 +69,6 @@ function Controller() {
                 height: 30,
                 width: 40,
                 backgroundImage: "/imagesForAllPlatforms/telefonhoerer.png",
-                title: "Call",
                 touchEnabled: true
             });
             var buttonNav = Ti.UI.createButton({
@@ -88,8 +87,7 @@ function Controller() {
                 right: 10,
                 height: 30,
                 width: 40,
-                backgroundImage: "/imagesForAllPlatforms/appicon.png",
-                title: "Weiteres"
+                backgroundImage: "/imagesForAllPlatforms/information.png"
             });
             row.add(label);
             buttonCall.addEventListener("click", function() {
@@ -136,10 +134,6 @@ function Controller() {
     function showNoResultLayout() {
         var tbl_data = [];
         var searchbar;
-        searchbar = Ti.UI.createSearchBar({
-            barColor: "#385292",
-            showCancel: false
-        });
         var row = Ti.UI.createTableViewRow();
         var label = Ti.UI.createLabel({
             left: 10,

@@ -280,14 +280,6 @@ function showTestLayout(persons) {
             text : person.get("firstName") + " " + person.get("lastName") 
         });
 
-/*	for (var i = 0; i < 10; i++) {
-
-		var row = Ti.UI.createTableViewRow();
-
-		var label = Ti.UI.createLabel({
-			left : 10,
-			text : 'Row Row Row Row Row Row' + (i + 1)
-		});*/
 
 		/*
 		 //Where to put images in your project: http://stackoverflow.com/questions/15888595/where-is-the-alloy-resources-folder
@@ -302,7 +294,7 @@ function showTestLayout(persons) {
 			width : 40,
 			backgroundImage : '/imagesForAllPlatforms/telefonhoerer.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			title : 'Call',
+			//title : 'Call',
 			touchEnabled : true,
 			//Transmit custom data for event processing
 			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
@@ -319,8 +311,6 @@ function showTestLayout(persons) {
 			height : 30,
 			width : 40,
 			backgroundImage : '/imagesForAllPlatforms/map.png',
-			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			
 		});
 
 		var buttonEMail = Ti.UI.createButton({
@@ -328,17 +318,15 @@ function showTestLayout(persons) {
 			height : 30,
 			width : 40,
 			backgroundImage : '/imagesForAllPlatforms/email.png',
-			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			
 		});
 
 		var buttonAdditional = Ti.UI.createButton({
 			right : 10,
 			height : 30,
 			width : 40,
-			backgroundImage : '/imagesForAllPlatforms/appicon.png',
+			backgroundImage : '/imagesForAllPlatforms/information.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
-			title : 'Weiteres'
+			//title : 'Weiteres'
 		});
 
 		row.add(label);
@@ -428,13 +416,14 @@ function showNoResultLayout() {
 
 	//Titanium searbar wird nur auf Android, iPhone und iPad unterstützt.
 	//http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.SearchBar
+	/*
 	if (!OS_MOBILEWEB) {
 		searchbar = Ti.UI.createSearchBar({
 			barColor : '#385292',
 			showCancel : false
 		});
 	}
-
+	*/
 
 		var row = Ti.UI.createTableViewRow();
 
@@ -499,7 +488,6 @@ function showPersonList(persons) {
 
 	//http://stackoverflow.com/questions/7465352/titanium-studio-adding-rows-to-section
 
-	//alert(stock.get("stockName"));
 
 	// CREATE RESULTS TABLEVIEW
 	var tableViewData = Ti.UI.createTableView({
@@ -557,28 +545,8 @@ function showPersonList(persons) {
 
 }
 
-/**
- var items = ['Television', 'Music System', 'Car', 'Bus', 'Train', 'Computer', 'Lap Top', 'I-Phone', 'Tablet', 'Electronics', 'Watch', 'Mouse'];
 
- function fillData() {
- var data = [];
- for (var i = 0; i < items.length; i++) {
- var row = Ti.UI.createTableViewRow({
- height : 50,
- title : items[i],
- color : 'gray',
- hasChild : true,
- font : {
- fontSize : 11
- },
- });
- data.push(row);
- }
- $.table.setData(data);
- }
- fillData();
- $.tabGroup.open();
- **/
+
 
 function getShareListAsynchronousAndShowIt(searchTerm) {
 
@@ -690,9 +658,6 @@ function getPersonModelFromWebserviceContent(webserviceContent) {
     library.add(person);
 */
     console.log(library.length);
-    //    alert(library.length);
-    //alert(library.length());
-    //alert (stock.get("sign"));
 
     return library;   
 
