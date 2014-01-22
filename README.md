@@ -1,10 +1,12 @@
 
 
-Mit der vorliegenden Applikation kann a lá Google, d.h. Volltext, nach Personen auf dem Mobiltelefon gesucht werden. 
+Mit der vorliegenden Applikation kann Volltext nach Personen auf dem Mobiltelefon gesucht werden. 
+
+Eine grundsätzliche Übersicht zur Funktionalität kann hier [a relative link](other_file.md), sowie hier [a relative link](other_file.md) gefunden werden. 
 
 
-todo bla bla
-
+Die Android Version funktioniert einwandfrei und fragt das JSON Webserive welches entwickelt wurde ab.
+Dieses kann auch hier abgerufen werden: http://199.231.93.151:8080/perssearch/searchPerson/[Suchbegriff]
 
 
 ACHTUNG:
@@ -13,9 +15,6 @@ Der Grund hierfür liegt in der in den Browsern umgesetzten same-origin-policy.
 Dazu siehe auch: http://docs.appcelerator.com/titanium/3.0/#!/api/Titanium.Network.HTTPClient
 
 
-Die Android Version funktioniert einwandfrei und fragt das JSON Webserive welches entwickelt wurde ab.
-Dieses kann auch hier abgerufen werden: http://199.231.93.151:8080/perssearch/searchPerson/[Suchbegriff]
- 
  
 Für Tizen kann derzeit keine Version bereitgestellt werden da der hierfür notwendige Emulator für Windows x64 Fehler beinhaltet durch
 welche er nicht startbar ist. Andererseits beinhaltet die aktuelle Version des Appcelerator Titanium Entwicklungsstudios einen
