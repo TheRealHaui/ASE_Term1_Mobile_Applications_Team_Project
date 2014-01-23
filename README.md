@@ -34,9 +34,7 @@ Die Android Version der Handyanwendung funktioniert einwandfrei und fragt das JS
 Dieses kann auch hier abgerufen werden: http://199.231.93.151:8080/perssearch/searchPerson/[Suchbegriff]
 
 
-Sie kann hier heruntergeladen werden: 
-
-https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Installable%20Application/Personen%20finden.apk?raw=true 
+Sie kann [hier](https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Installable%20Application/Personen%20finden.apk?raw=true) heruntergeladen werden.  
 
 
 
