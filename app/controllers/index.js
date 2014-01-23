@@ -26,8 +26,12 @@ var username = Titanium.UI.createTextField({
     keyboardToolbarColor : '#999',
     keyboardToolbarHeight : 40,
     top : 100,
-    width : 300,  height: Ti.UI.SIZE
+    width : 300,  height: Ti.UI.SIZE,
+    value: Ti.App.Properties.getString('lastUsername'),
 });
+
+
+
 var label1 = Ti.UI.createLabel({
   color: '#900',
   font: { fontSize:48 },
@@ -88,8 +92,11 @@ function checkPw(username, password)
 			console.log ('Vergleich Username:' + user);
 			console.log ('Vergleich password:' + pw);
 */
-			if (usern == user && passw == pw)	
-			{	return true;
+			if (usern == user && passw == pw)
+			{
+			    //Save last username.
+			    Ti.App.Properties.setString('lastUsername',usern.toString());	
+				return true;
 			}	
 	   }
 
