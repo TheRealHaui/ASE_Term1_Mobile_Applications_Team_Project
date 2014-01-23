@@ -331,6 +331,7 @@ function showTestLayout(persons) {
 		});
 
 		var buttonAdditional = Ti.UI.createButton({
+			id : 'additional_' + i,
 			right : 10,
 			height : 20,
 			width : 20,
@@ -351,6 +352,8 @@ function showTestLayout(persons) {
 		
 		buttonAdditional.addEventListener('click', function(e)
 		{
+			var rowindex = e.source.id.split('_');
+			alert(rowindex[1]);
 			var win = Alloy.createController('additionalinformation',person).getView();
   			win.open();
   			console.log("buttonclick Additional");
