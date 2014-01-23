@@ -14,4 +14,6 @@
 	<string name="emptysearch">You must enter at least one character</string>
 	<string name="nolocationcap">Map Error</string>
 	<string name="nolocation">Localization on the map is not valid</string>
+	<string name="mailsubject">Hello from Titanium</string>
+	<string name="mailbody">Appcelerator Titanium Sucks!</string>
 </resources>

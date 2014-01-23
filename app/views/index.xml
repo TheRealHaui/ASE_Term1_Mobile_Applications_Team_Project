@@ -45,6 +45,7 @@ http://docs.appcelerator.com/titanium/3.0/#!/guide/Alloy_Controllers-section-346
             width="66%"
             value="Personen suchen"
             id="searchFieldId"
+            
             onReturn="doSearchButtonClick"
             onTouchstart="doTouchStart"
             >
