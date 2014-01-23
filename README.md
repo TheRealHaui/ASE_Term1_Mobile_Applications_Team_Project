@@ -34,6 +34,12 @@ Die Android Version der Handyanwendung funktioniert einwandfrei und fragt das JS
 Dieses kann auch hier abgerufen werden: http://199.231.93.151:8080/perssearch/searchPerson/[Suchbegriff]
 
 
+Sie kann hier heruntergeladen werden: 
+
+https://github.com/TheRealHaui/ASE_Term1_Mobile_Applications_Team_Project/blob/master/Installable%20Application/Personen%20finden.apk?raw=true 
+
+
+
 ACHTUNG:
 Die mobile auf HTML 5 basierende Webseitenversion zeigt immer, unabhängig von der Sucheingabe der BenutzerIn, die gleiche Ergebnismenge an.
 Der Grund hierfür liegt in der in den Browsern umgesetzten same-origin-policy.
