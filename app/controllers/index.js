@@ -2,6 +2,8 @@ var initialSearchFieldTextValue = Ti.Locale.getString('search_message');
 console.log("start");
 $.searchFieldId.value = initialSearchFieldTextValue;
 
+
+
 var win = Titanium.UI.createWindow({
    title: L('login'),
    backgroundColor: 'white'
@@ -87,7 +89,8 @@ function checkPw(username, password)
 			console.log ('Vergleich password:' + pw);
 */
 			if (usern == user && passw == pw)	
-				return true;
+			{	return true;
+			}	
 	   }
 
 	}
@@ -111,6 +114,8 @@ loginButton.addEventListener('click',function(e)
        alert(L('notvalid'));
   else     
        {
+       $.button.title=L("search");
+       $.searchFieldId.color ='black';	
    	   $.mainWindowId.open();
    	   Ti.Media.vibrate([0,500]);
    	   startAccelerator();
@@ -125,8 +130,8 @@ win.add(password);
 win.add(loginButton);
 //scrollView.add(view);
 //win.add(scrollView);
+
 win.open();
-//$.loginWindowId.open();
 console.log("nach open");
 //Display page
 //$.mainWindowId.open();
@@ -276,7 +281,8 @@ function showTestLayout(persons) {
 	//http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.SearchBar
 	if (!OS_MOBILEWEB) {
 		searchbar = Ti.UI.createSearchBar({
-			barColor : '#385292',
+			//barColor : '#385292',
+			barColor :'#000',
 			showCancel : false,
 			color: 'black'
 		});
@@ -296,44 +302,33 @@ function showTestLayout(persons) {
         });
 
 		var buttonCall = Ti.UI.createButton({
-			right : 70,
-			height : 20,
-			width : 20,
+			id: 'call_' + i,
+			right : 80,
+			height : 30,
+			width : 30,
 			backgroundImage : '/imagesForAllPlatforms/telefonhoerer.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
 			//title : 'Call',
-			touchEnabled : true,
+			touchEnabled : true
 
 			//Transmit custom data for event processing
 			//http://stackoverflow.com/questions/9306145/titanium-mobileget-row-value-from-tableview-on-button-click-issue
 			//customData : "my custom data"
 		});
 
-		//Does not work, at least in webpages.
-		//http://docs.appcelerator.com/titanium/3.0/#!/guide/Event_Handling
-		//buttonCall.addEventListener("call",resultListButtonClicked);
-		//buttonCall.addEventListener("call", function(e){ alert(1111); } );
-
-/*
-		var buttonNav = Ti.UI.createButton({
-			right : 70,
-			height : 20,
-			width : 20,
-			backgroundImage : '/imagesForAllPlatforms/map.png',
-		});
-*/
-
 		var buttonEMail = Ti.UI.createButton({
-			right : 40,
-			height : 20,
-			width : 20,
-			backgroundImage : '/imagesForAllPlatforms/email.png',
+			id: 'mail_' + i,
+			right : 50,
+			height : 30,
+			width : 30,
+			backgroundImage : '/imagesForAllPlatforms/email.png'
 		});
 
 		var buttonAdditional = Ti.UI.createButton({
+			id: 'additional_' + i,
 			right : 10,
-			height : 20,
-			width : 20,
+			height : 30,
+			width : 30,
 			backgroundImage : '/imagesForAllPlatforms/i.png'
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
 			//backgroundSelectedImage:'/images/custom-slider-left.png',
@@ -345,22 +340,32 @@ function showTestLayout(persons) {
 		//row.add(image);
 		buttonCall.addEventListener('click', function (e)
 		{
-			console.log(person.get("telephonNumber"));
-			Titanium.Platform.openURL('tel:'+person.get("telephonNumber"));
+			var tmp = e.source.id.split('_');
+			var index = tmp[1];
+			var p = persons.at(index);
+			console.log(p.get("telephonNumber"));
+			//console.log(person.get("telephonNumber"));
+			Titanium.Platform.openURL('tel:'+p.get("telephonNumber"));
 		});
 		
 		buttonAdditional.addEventListener('click', function(e)
 		{
-			var win = Alloy.createController('additionalinformation',person).getView();
+			var tmp = e.source.id.split('_');
+			var index = tmp[1];
+			var p = persons.at(index);
+			var win = Alloy.createController('additionalinformation',p).getView();
   			win.open();
   			console.log("buttonclick Additional");
 		});
 		
 		buttonEMail.addEventListener('click', function(e)
 		{
+			var tmp = e.source.id.split('_');
+			var index = tmp[1];
+			var p = persons.at(index);
 			var emailDialog = Ti.UI.createEmailDialog();
 			emailDialog.subject = "Hello from Titanium";
-			emailDialog.toRecipients = [person.get("emailAddress")];
+			emailDialog.toRecipients = [p.get("emailAddress")];
 			emailDialog.messageBody = 'Appcelerator Titanium Sucks!';
 			emailDialog.open();
 		});
@@ -396,7 +401,6 @@ function showTestLayout(persons) {
 	//Has to be used because button click listener to not work.
 	//http://developer.appcelerator.com/question/126708/respond-to-a-button-in-a-table-row-without-triggering-table-row-click
 	table.addEventListener('click', resultListButtonClicked);
-
 	
 	var viewChildren = $.searchViewId.getChildren();
 	
@@ -444,8 +448,6 @@ function showNoResultLayout() {
 		});
 
 
-
-	
 		row.add(label);
 
 		tbl_data.push(row);

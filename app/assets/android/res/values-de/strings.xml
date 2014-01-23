@@ -14,4 +14,6 @@
 	<string name="emptysearch">Sie müssen mindestens einen Buchstaben zur Suche eingeben</string>
 	<string name="nolocationcap">Karten Fehler</string>
 	<string name="nolocation">Lokalisierung auf der Karte ungültig</string>
+	<string name="mailsubject">Hallo von Titanium</string>
+	<string name="mailbody">Appcelerator Titanium!</string>
 </resources>
