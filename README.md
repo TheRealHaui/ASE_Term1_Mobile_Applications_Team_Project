@@ -17,6 +17,7 @@ Weiters werden
  - die Erstellung von eMails direkt aus der Applikation heraus unterstützt
  - das Versenden von SMS direkt aus der Applikation heraus unterstützt
  - nach erfolgreichem Login der BenutzerIn ein Vibrationsalarm ausgelöst
+ - der Benutzername des letzten erfolgreichen Logins automatisch im Benutzernamenfeld des Logindialoges angezeigt
  - Deutsch und Englisch als Benutzersprachen unterstützt
 
 Dies alles kann von BenutzerInnen nach erfolgreichem Login durchgeführt werden.
